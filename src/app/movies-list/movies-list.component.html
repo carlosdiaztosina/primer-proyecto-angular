@@ -1,0 +1,5 @@
+<div class="container">
+    <ul class="movisList">
+        <li class="movieCard" *ngFor="let movie of movies; let i = index"> <h3 class="movieTitle">{{movie.title}}</h3><img class="movieImg" src="{{movieImgPath + movie.poster_path}}" alt=""> </li>
+    </ul>
+</div>

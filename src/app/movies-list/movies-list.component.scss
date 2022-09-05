@@ -1,0 +1,63 @@
+.movisList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 230px);
+  gap: 40px;
+  padding: 40px;
+  justify-content: center;
+  grid-column-gap: 100px;
+}
+
+.movieCard {
+  list-style: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.movieCard:hover {
+  opacity: 0.6;
+}
+
+.movieImg {
+  border-radius: 2%;
+  background-color: white;
+}
+
+.movieTitle {
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.movieVote {
+  position: relative;
+  bottom: 45px;
+  right: 40%;
+  color: yellow;
+  text-shadow: 2px 1px black;
+  font-size: 1.5em;
+}
+
+.starVote {
+  position: relative;
+  top: 3px;
+  stroke: rgb(255, 255, 255);
+  stroke-width: 40px;
+  margin-left: 5px;
+}
+
+@media (max-width: 560px) {
+  .movieImg {
+    width: 85%;
+    height: auto;
+  }
+
+  .movieTitle {
+    font-size: 1em;
+  }
+
+  .movieVote {
+    font-size: 1.2em;
+  }
+}
