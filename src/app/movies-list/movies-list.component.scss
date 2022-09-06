@@ -1,9 +1,32 @@
+.container{
+  margin: auto;
+}
+
+.tittle{
+  text-align: center;
+  font-size: 100px;
+  width: auto;
+  margin: 50px 250px 50px 250px;
+  cursor: pointer;
+  color: rgba(255, 0, 0, 0.659);
+}
+
+.search{
+  text-align: center;
+}
+
+.fieldText{
+  height: 40px;
+  width: 50%;
+}
+
 .movisList {
   display: grid;
   grid-template-columns: repeat(auto-fill, 230px);
-  gap: 40px;
-  padding: 40px;
+  gap: 20px;
+  padding: 10px;
   justify-content: center;
+  justify-items: center;
   grid-column-gap: 100px;
 }
 
@@ -11,8 +34,13 @@
   list-style: none;
   text-align: center;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
-  justify-content: center;
+  a{
+    text-decoration:none;
+    color: black;
+    justify-content: space-between;
+  }
 }
 
 .movieCard:hover {
@@ -22,30 +50,19 @@
 .movieImg {
   border-radius: 2%;
   background-color: white;
+  margin-bottom: 20px;
 }
 
 .movieTitle {
-  font-size: 1.8em;
-  font-weight: bold;
-  margin-bottom: 30px;
-}
-
-.movieVote {
-  position: relative;
-  bottom: 45px;
-  right: 40%;
-  color: yellow;
-  text-shadow: 2px 1px black;
   font-size: 1.5em;
+  font-weight: bold;
+  height: 55px;
+  width: 260px;
+  margin: 15px;
+  color: white;
+  
 }
 
-.starVote {
-  position: relative;
-  top: 3px;
-  stroke: rgb(255, 255, 255);
-  stroke-width: 40px;
-  margin-left: 5px;
-}
 
 @media (max-width: 560px) {
   .movieImg {

@@ -1,5 +1,20 @@
 <div class="container">
-    <ul class="movisList">
-        <li class="movieCard" *ngFor="let movie of movies; let i = index"> <h3 class="movieTitle">{{movie.title}}</h3><img class="movieImg" src="{{movieImgPath + movie.poster_path}}" alt=""> </li>
-    </ul>
+  <h2 class="tittle" (click)="movieTitle()">Movies</h2>
+  <div class="search">
+    <input class="fieldText limpiarinput" placeholder="Search" (ngModels)="Search()" #input>
+  </div>
+
+  <ul class="movisList">
+    <li class="movieCard" *ngFor="let movie of movies; let i = index">
+      <a href="/{{ movie.id }}"
+        ><h3 class="movieTitle">{{ movie.title }}</h3>
+        <img
+          class="movieImg"
+          src="{{movie.poster_path ? movieImgPath + movie.poster_path : 'undefined' }}"
+          alt=""
+        />
+      </a>
+    </li>
+  </ul>
+  <div class="search-results" infiniteScroll (scrolled)="onScroll()"></div>
 </div>
