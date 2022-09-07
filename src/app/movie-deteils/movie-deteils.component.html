@@ -1,18 +1,19 @@
-<h2 class="tittle" routerLink="">  Movies </h2>
-<div class="detailsContainer" >
-    <img class="movieImg col"
-        src="{{movieImgPath + movie.poster_path}}"
-        alt=""
-    />
+<h2 class="tittle" routerLink=""> Movies </h2>
+<div *ngIf="this.error.length > 1; else elseBlock" class="errorMesage">
+  {{this.error}}
+</div>
+<ng-template #elseBlock>
+  <div class="detailsContainer">
+    <img class="movieImg col" src="{{movieImgPath + movie.poster_path}}" alt="" />
     <div class="col movieDetails">
-        <p><strong>Tittle: </strong>
-            {{movie.title}}
-          </p>
+      <p><strong>Tittle: </strong>
+        {{movie.title}}
+      </p>
 
-          <p>
-            <strong>Description: </strong>
-            {{movie.overview}}
-          </p>
+      <p>
+        <strong>Description: </strong>
+        {{movie.overview}}
+      </p>
     </div>
-    
   </div>
+</ng-template>

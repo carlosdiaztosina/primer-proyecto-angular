@@ -45,16 +45,17 @@
     color: black;
     justify-content: space-between;
   }
-}
-
-.movieCard:hover {
-  opacity: 0.6;
+  :hover{
+    opacity: 0.6;
+  }
 }
 
 .movieImg {
   border-radius: 2%;
   background-color: white;
   margin-bottom: 20px;
+  height: 400px;
+  width: 280px;
 }
 
 .movieTitle {
@@ -69,11 +70,17 @@
   text-overflow: ellipsis;
 }
 
-
 hr {
   height: 2px;
-  width: 100%;
+  width: 280px;
   background-color: white;
+}
+
+.errorTitle{
+  color: white;
+    text-align: center;
+    margin: 50px;
+    font-size: 30px;
 }
 
 @media (max-width: 560px) {

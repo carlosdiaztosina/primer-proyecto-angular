@@ -2,21 +2,29 @@
   <div class="search">
   <h2 class="tittle" (click)="movieTitle()">Movies</h2>
   
-    <input class="fieldText limpiarinput" placeholder="Search" (ngModels)="Search()" #input>
+    <input class="fieldText limpiarinput" placeholder="Search" [ngModel]="text" (input)="Search($event)">
   </div>
 
-  <ul class="movisList">
-    <li class="movieCard" *ngFor="let movie of movies; let i = index">
-      <a href="/{{ movie.id }}"
-        ><h3 class="movieTitle">{{ movie.title }}</h3>
-        <img
-          class="movieImg"
-          src="{{movie.poster_path ? movieImgPath + movie.poster_path : 'undefined' }}"
-          alt=""
-        />
-      </a>
-      <hr>
-    </li>
-  </ul>
-  <div class="search-results" infiniteScroll (scrolled)="onScroll()"></div>
+  <div *ngIf="this.error.length > 1; else elseBlock" class="errorTitle">
+    {{this.error}}
+  </div>
+  <ng-template #elseBlock>
+    <ul class="movisList">
+      <li class="movieCard" *ngFor="let movie of movies; let i = index">
+        <a href="/{{ movie.id }}"
+          ><h3 class="movieTitle">{{ movie.title }}</h3>
+          <img
+            class="movieImg"
+            onerror="this.src='./assets/not-found.jpg';"
+            src="{{movieImgPath + movie.poster_path }}"
+            alt=""
+          />
+        </a>
+        <hr>
+      </li>
+    </ul>
+    <div class="search-results" infiniteScroll (scrolled)="onScroll()"></div>
+  </ng-template>
 </div>
+
+  
