@@ -11,9 +11,10 @@ export class MoviesApiService {
   }
   path ="";
   apiKey="api_key=f160e6dfe95f15b5bf585afa806632f9";
+  rootURL = 'https://api.themoviedb.org/3';
+  
   constructor(private http: HttpClient) { }
 
-  rootURL = 'https://api.themoviedb.org/3';
 
   getMovies():Observable<any>{
     this.path = this.rootURL + "/discover/movie" ;

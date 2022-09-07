@@ -1,6 +1,7 @@
 <div class="container">
-  <h2 class="tittle" (click)="movieTitle()">Movies</h2>
   <div class="search">
+  <h2 class="tittle" (click)="movieTitle()">Movies</h2>
+  
     <input class="fieldText limpiarinput" placeholder="Search" (ngModels)="Search()" #input>
   </div>
 
@@ -14,6 +15,7 @@
           alt=""
         />
       </a>
+      <hr>
     </li>
   </ul>
   <div class="search-results" infiniteScroll (scrolled)="onScroll()"></div>

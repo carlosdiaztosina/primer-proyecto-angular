@@ -1,23 +1,28 @@
 .container{
-  margin: auto;
+  margin: 10px;
+}
+.search{
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .tittle{
   text-align: center;
   font-size: 100px;
   width: auto;
-  margin: 50px 250px 50px 250px;
+  margin: 5px;
   cursor: pointer;
   color: rgba(255, 0, 0, 0.659);
-}
-
-.search{
-  text-align: center;
 }
 
 .fieldText{
   height: 40px;
   width: 50%;
+  outline: none;
+  border: 1px solid black;
+  border-radius: 10px;
 }
 
 .movisList {
@@ -34,7 +39,6 @@
   list-style: none;
   text-align: center;
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   a{
     text-decoration:none;
@@ -58,13 +62,24 @@
   font-weight: bold;
   height: 55px;
   width: 260px;
+  max-height: 60px;
   margin: 15px;
   color: white;
-  
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
+hr {
+  height: 2px;
+  width: 100%;
+  background-color: white;
+}
+
 @media (max-width: 560px) {
+  .tittle{
+    font-size:50px;
+  }
   .movieImg {
     width: 85%;
     height: auto;
