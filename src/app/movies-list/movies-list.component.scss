@@ -7,16 +7,27 @@
   top: 0;
   z-index: 1;
 }
+.title-login{
+  display: flex;
+  flex-direction: row-reverse;
+}
 
 .tittle{
-  text-align: center;
   font-size: 100px;
   width: auto;
   margin: 5px;
   cursor: pointer;
   color: rgba(255, 0, 0, 0.659);
+  flex-grow: 1;
+  position: relative;
+  left: 15px;
 }
-
+.icon{
+  color: white;
+  margin: 5px;
+  font-size: 25px;
+  cursor: pointer;
+}
 .fieldText{
   height: 40px;
   width: 50%;

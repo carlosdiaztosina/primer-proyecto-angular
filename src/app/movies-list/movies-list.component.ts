@@ -56,7 +56,7 @@ export class MoviesListComponent implements OnInit {
   }
 
   Search(event: any | any) {
-    if (!!event)
+    if (!!event){
       if(this.debounceTimer) clearTimeout(this.debounceTimer);
       this.debounceTimer = setTimeout(()=>{
         this.text = event.target.value;
@@ -82,8 +82,8 @@ export class MoviesListComponent implements OnInit {
           this.getMovies();
         }
       },500);
+    }
   }
-
 
   movieTitle() {
     this.movies = [];
@@ -91,5 +91,11 @@ export class MoviesListComponent implements OnInit {
     this.error = "";
     this.getMovies();
   }
+
+  login(){
+    console.log("hola")
+  }
+
+
 
 }

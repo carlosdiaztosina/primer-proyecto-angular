@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MoviesApiService } from '../movies-api.service';
 import {Router, ActivatedRoute, Params} from '@angular/router';
+
 @Component({
   selector: 'app-movie-deteils',
   templateUrl: './movie-deteils.component.html',

@@ -1,7 +1,9 @@
 <div class="container">
   <div class="search">
-  <h2 class="tittle" (click)="movieTitle()">Movies</h2>
-  
+    <div class="title-login">
+      <mat-icon class="icon" (click)="login()">person</mat-icon>
+      <h2 class="tittle" (click)="movieTitle()">Movies</h2>
+    </div>
     <input class="fieldText limpiarinput" placeholder="Search" [ngModel]="text" (input)="Search($event)">
   </div>
 
@@ -11,14 +13,10 @@
   <ng-template #elseBlock>
     <ul class="movisList">
       <li class="movieCard" *ngFor="let movie of movies; let i = index">
-        <a href="/{{ movie.id }}"
-          ><h3 class="movieTitle">{{ movie.title }}</h3>
-          <img
-            class="movieImg"
-            onerror="this.src='./assets/not-found.jpg';"
-            src="{{movieImgPath + movie.poster_path }}"
-            alt=""
-          />
+        <a href="/{{ movie.id }}">
+          <h3 class="movieTitle">{{ movie.title }}</h3>
+          <img class="movieImg" onerror="this.src='./assets/not-found.jpg';" src="{{movieImgPath + movie.poster_path }}"
+            alt="" />
         </a>
         <hr>
       </li>
@@ -26,5 +24,3 @@
     <div class="search-results" infiniteScroll (scrolled)="onScroll()"></div>
   </ng-template>
 </div>
-
-  

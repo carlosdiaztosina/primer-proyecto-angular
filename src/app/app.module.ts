@@ -9,6 +9,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MovieDeteilsComponent } from './movie-deteils/movie-deteils.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     InfiniteScrollModule,
     FormsModule,
     ReactiveFormsModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
