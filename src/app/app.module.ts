@@ -8,14 +8,15 @@ import { MoviesListComponent } from './movies-list/movies-list.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MovieDeteilsComponent } from './movie-deteils/movie-deteils.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { MatIconModule } from '@angular/material/icon';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MoviesListComponent,
-    MovieDeteilsComponent
+    MovieDeteilsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

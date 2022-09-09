@@ -1,1 +1,16 @@
-<p>login works!</p>
+<div class="container">
+    <h2 class="title">Login</h2>
+    <form class="form" [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+
+        <div>
+            <input id="name" name="name" type="text" formControlName="name">
+        </div>
+
+        <div>
+            <input id="password" name="" type="password" formControlName="password">
+        </div>
+
+        <button class="button" type="submit">Login</button>
+
+    </form>
+</div>

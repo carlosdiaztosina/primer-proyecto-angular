@@ -12,9 +12,11 @@ export class MovieDeteilsComponent implements OnInit {
   movie:any =[];
   movieImgPath = 'https://image.tmdb.org/t/p/w300';
   error='';
+ 
   
   constructor(private _movie: MoviesApiService,private activatedRoute: ActivatedRoute) { }
   ngOnInit(): void {
+    
     this.activatedRoute.params.subscribe((params: Params) => {
       
       let id = params['id'];
@@ -29,7 +31,6 @@ export class MovieDeteilsComponent implements OnInit {
       console.log(data)
       this.movie = data;
     },err => {
-      
       this.error = "This ID that you are searching is not valid"
       console.log(this.error)
     });

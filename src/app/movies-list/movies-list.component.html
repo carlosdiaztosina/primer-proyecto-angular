@@ -1,7 +1,12 @@
 <div class="container">
   <div class="search">
     <div class="title-login">
-      <mat-icon class="icon" (click)="login()">person</mat-icon>
+      <div *ngIf="!this.session_id; else logout">
+        <mat-icon class="icon" (click)="login(1)">person</mat-icon>
+      </div>
+      <ng-template #logout>
+        <mat-icon class="icon" (click)="login(2)">logout</mat-icon>
+      </ng-template>
       <h2 class="tittle" (click)="movieTitle()">Movies</h2>
     </div>
     <input class="fieldText limpiarinput" placeholder="Search" [ngModel]="text" (input)="Search($event)">
@@ -13,7 +18,7 @@
   <ng-template #elseBlock>
     <ul class="movisList">
       <li class="movieCard" *ngFor="let movie of movies; let i = index">
-        <a href="/{{ movie.id }}">
+        <a href="search/{{ movie.id }}">
           <h3 class="movieTitle">{{ movie.title }}</h3>
           <img class="movieImg" onerror="this.src='./assets/not-found.jpg';" src="{{movieImgPath + movie.poster_path }}"
             alt="" />

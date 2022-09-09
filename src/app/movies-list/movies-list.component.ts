@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MoviesApiService } from '../movies-api.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-movies-list',
   templateUrl: './movies-list.component.html',
@@ -13,12 +13,19 @@ export class MoviesListComponent implements OnInit {
   page = 0;
   text = '';
   error = '';
+  url: any;
+  id_user:any;
+
+  session_id = sessionStorage.getItem('sessionId');
+
   private debounceTimer?: NodeJS.Timeout
-  constructor(private _movies: MoviesApiService) { }
+  constructor(private _movies: MoviesApiService, private route: Router) { }
 
   ngOnInit(): void {
+    console.log(this.session_id);
     this.getMovies();
     this.Search(null);
+    this.getUser();
   }
 
   getMovies() {
@@ -56,12 +63,12 @@ export class MoviesListComponent implements OnInit {
   }
 
   Search(event: any | any) {
-    if (!!event){
-      if(this.debounceTimer) clearTimeout(this.debounceTimer);
-      this.debounceTimer = setTimeout(()=>{
+    if (!!event) {
+      if (this.debounceTimer) clearTimeout(this.debounceTimer);
+      this.debounceTimer = setTimeout(() => {
         this.text = event.target.value;
         this.movies = [];
-        if( event.target.value.length > 0) {
+        if (event.target.value.length > 0) {
           console.log(this.text)
           this._movies.getMoviesSearch(this.text)
             .subscribe((data) => {
@@ -78,10 +85,10 @@ export class MoviesListComponent implements OnInit {
               }
             });
         } else {
-          this.error="";
+          this.error = "";
           this.getMovies();
         }
-      },500);
+      }, 500);
     }
   }
 
@@ -92,8 +99,26 @@ export class MoviesListComponent implements OnInit {
     this.getMovies();
   }
 
-  login(){
-    console.log("hola")
+  login(login: any) {
+    if (login == 1) {
+      this.route.navigate(['/login']);
+    } else {
+      this._movies.setLogout()
+      this.route.navigate([''])
+        .then(() => {
+          window.location.reload();
+        });
+    }
+  }
+
+  getUser(){
+    if(this.session_id){
+      this._movies.getUser(this.session_id).subscribe(data =>{
+        console.log(data);
+        this.id_user = data.id
+        console.log(this.id_user)
+      })
+    }
   }
 
 
