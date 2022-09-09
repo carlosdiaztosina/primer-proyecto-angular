@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { LoginComponent } from './login/login.component';
 
+import { BarRatingModule } from "ngx-bar-rating";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +28,7 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
+    BarRatingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
