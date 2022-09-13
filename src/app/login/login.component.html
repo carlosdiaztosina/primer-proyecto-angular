@@ -1,16 +1,16 @@
+<app-navegation></app-navegation>
 <div class="container">
     <h2 class="title">Login</h2>
+    <h4 class="{{this.errorMessage ? 'invalidLogin':'validLogin'}}">{{this.errorMessage}}</h4>
     <form class="form" [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
 
         <div>
-            <input id="name" name="name" type="text" formControlName="name">
+            <input id="name" name="name" type="text" placeholder="User name" formControlName="name">
         </div>
 
         <div>
-            <input id="password" name="" type="password" formControlName="password">
+            <input id="password" name="" type="password" placeholder="Password" formControlName="password">
         </div>
-
-        <button class="button" type="submit">Login</button>
-
+        <button class="buttonLogin" type="submit">Login</button>
     </form>
 </div>

@@ -4,21 +4,28 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MoviesListComponent } from './movies-list/movies-list.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { MovieDeteilsComponent } from './movie-deteils/movie-deteils.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { LoginComponent } from './login/login.component';
 
-import { BarRatingModule } from "ngx-bar-rating";
+import { MoviesListComponent } from './movies-list/movies-list.component';
+import { MovieDeteilsComponent } from './movie-deteils/movie-deteils.component';
+import { LoginComponent } from './login/login.component';
+import { FavoriteMoviesComponent } from './favorite-movies/favorite-movies.component';
+
+
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonToggleModule }  from '@angular/material/button-toggle';
+import { NavegationComponent } from './navigation/navegation.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
     AppComponent,
     MoviesListComponent,
     MovieDeteilsComponent,
-    LoginComponent
+    LoginComponent,
+    FavoriteMoviesComponent,
+    NavegationComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +35,8 @@ import { BarRatingModule } from "ngx-bar-rating";
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
-    BarRatingModule,
+    MatButtonToggleModule,
+    MatExpansionModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

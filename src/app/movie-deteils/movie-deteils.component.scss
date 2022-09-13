@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    backgroud-color:rgba(22, 22, 22, 0.852);
 }
 
 .tittle {
@@ -30,12 +31,54 @@
 
 .movieDetails {
     font-size: 1.5em;
-    p{
+
+    p {
         color: white;
     }
 }
 
-.errorMesage{
+.starContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .rating-list {
+        display: inline-block;
+        list-style: none;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .rating-list li {
+        font-size: 20px;
+        float: right;
+        color: #ddd;
+        padding: 10px 5px;
+    }
+
+    .rating-list li.selected {
+        color: #ffd700;
+    }
+
+    .iconFavorite {
+        color: white;
+        margin-left: 90px;
+        position: relative;
+        bottom: 5px;
+        cursor: pointer;
+        
+    }
+    .selectedFavorite{
+        color: red;
+        margin-left: 90px;
+        position: relative;
+        bottom: 5px;
+        cursor: pointer;
+    }
+}
+
+
+.errorMesage {
     color: white;
     text-align: center;
     margin: 50px;

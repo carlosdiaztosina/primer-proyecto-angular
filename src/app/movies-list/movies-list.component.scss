@@ -1,40 +1,30 @@
-.container{
+.container {
   margin: 10px;
 }
-.search{
+
+.search {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
   text-align: center;
   position: sticky;
   top: 0;
   z-index: 1;
 }
-.title-login{
-  display: flex;
-  flex-direction: row-reverse;
-}
 
-.tittle{
-  font-size: 100px;
-  width: auto;
-  margin: 5px;
-  cursor: pointer;
-  color: rgba(255, 0, 0, 0.659);
-  flex-grow: 1;
-  position: relative;
-  left: 20px;
-}
-.icon{
-  color: white;
-  margin: 10px;
-  cursor: pointer;
-  padding: 10px;
-  font-size: 35px;
-}
-.fieldText{
-  height: 40px;
-  width: 50%;
-  outline: none;
-  border: 1px solid black;
-  border-radius: 10px;
+.fieldContainer {
+
+  display: flex;
+  justify-content: center;
+
+  .fieldText {
+    height: 40px;
+    width: 25%;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 0px 15px 0px 15px
+  }
 }
 
 .movisList {
@@ -52,12 +42,14 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  a{
-    text-decoration:none;
+
+  a {
+    text-decoration: none;
     color: black;
     justify-content: space-between;
   }
-  :hover{
+
+  :hover {
     opacity: 0.6;
   }
 }
@@ -88,17 +80,18 @@ hr {
   background-color: white;
 }
 
-.errorTitle{
+.errorTitle {
   color: white;
-    text-align: center;
-    margin: 50px;
-    font-size: 30px;
+  text-align: center;
+  margin: 50px;
+  font-size: 30px;
 }
 
 @media (max-width: 560px) {
-  .tittle{
-    font-size:50px;
+  .tittle {
+    font-size: 50px;
   }
+
   .movieImg {
     width: 85%;
     height: auto;
@@ -111,4 +104,9 @@ hr {
   .movieVote {
     font-size: 1.2em;
   }
+
+  .fieldText {
+    bottom: 100px;
+  }
+
 }

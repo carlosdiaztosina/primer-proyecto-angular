@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MoviesApiService } from '../movies-api.service';
 import { Router } from '@angular/router';
+import { NavigationService } from '../navigation/navigation.service';
+
 @Component({
   selector: 'app-movies-list',
   templateUrl: './movies-list.component.html',
@@ -13,20 +15,25 @@ export class MoviesListComponent implements OnInit {
   page = 0;
   text = '';
   error = '';
+  valueTextField: any;
   url: any;
-  id_user:any;
+  id_user: any;
+
+  menuOn = false;
 
   session_id = sessionStorage.getItem('sessionId');
 
   private debounceTimer?: NodeJS.Timeout
-  constructor(private _movies: MoviesApiService, private route: Router) { }
+
+  constructor(private _movies: MoviesApiService, private route: Router, private navigationService: NavigationService ) { }
+
 
   ngOnInit(): void {
-    console.log(this.session_id);
     this.getMovies();
     this.Search(null);
     this.getUser();
   }
+
 
   getMovies() {
     this._movies.getMovies().subscribe((data) => {
@@ -63,16 +70,18 @@ export class MoviesListComponent implements OnInit {
   }
 
   Search(event: any | any) {
+    console.log(event);
+    if(this.navigationService.getText().length > 1){
+      event = this.navigationService.getText();
+    }
     if (!!event) {
       if (this.debounceTimer) clearTimeout(this.debounceTimer);
       this.debounceTimer = setTimeout(() => {
         this.text = event.target.value;
         this.movies = [];
-        if (event.target.value.length > 0) {
-          console.log(this.text)
+        if (event.target.value.length > 0 ) {
           this._movies.getMoviesSearch(this.text)
             .subscribe((data) => {
-              console.log(data)
               if (data.total_results < 1 && this.text.length > 1) {
                 this.error = "The Movie that you are searching not exit";
               } else {
@@ -96,12 +105,15 @@ export class MoviesListComponent implements OnInit {
     this.movies = [];
     this.text = "";
     this.error = "";
+
     this.getMovies();
   }
 
-  login(login: any) {
-    if (login == 1) {
+  login(login: string) {
+    if (login == "login") {
       this.route.navigate(['/login']);
+    } else if (login == "favorite") {
+      this.route.navigate(['/favorite/movies']);
     } else {
       this._movies.setLogout()
       this.route.navigate([''])
@@ -111,13 +123,19 @@ export class MoviesListComponent implements OnInit {
     }
   }
 
-  getUser(){
-    if(this.session_id){
-      this._movies.getUser(this.session_id).subscribe(data =>{
-        console.log(data);
-        this.id_user = data.id
-        console.log(this.id_user)
+  getUser() {
+    if (this.session_id) {
+      this._movies.getUser(this.session_id).subscribe(data => {
+        sessionStorage.setItem("user", JSON.stringify(data));
       })
+    }
+  }
+
+  downMenu() {
+    if (!this.menuOn) {
+      this.menuOn = true
+    } else {
+      this.menuOn = false;
     }
   }
 

@@ -1,0 +1,66 @@
+.container {
+    padding: 15px;
+}
+
+.navBar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.flexContainer {
+    background-color: rgb(232, 232, 232);
+    display: flex;
+    border-radius: 5px;
+    margin: auto;
+    margin-bottom: 20px;
+    height: 250px;
+    width: 75%;
+    box-shadow: 3px 5px 5px rgb(100 100 100);
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+
+    .image {
+        height: 250px !important;
+        width: calc(250px / 1.5);
+        border-radius: 5px;
+    }
+
+    .card {
+        margin: 10px;
+        display: grid;
+
+        .titleCardContainer {
+            display: flex;
+            justify-content: space-between;
+            h2 {
+                font-size: 30px;
+                margin: 0;
+            }
+
+            mat-icon{
+                color: red;
+                cursor: pointer;
+            }
+        }
+
+        p {
+            margin: 0;
+            font-size: 17px;
+        }
+    }
+}
+
+@media (max-width: 560px) {
+    .card {
+
+        h2 {
+            font-size: 20px !important;
+        }
+
+        p {
+            font-size: 13px !important;
+        }
+    }
+}
