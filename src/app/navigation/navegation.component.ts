@@ -32,7 +32,6 @@ export class NavegationComponent implements OnInit {
 
   ngOnInit(): void {
     this.session_id = this.userService.getSessionId();
-    console.log('aa', this.session_id);
     if(this.route.url.length > 1){
       this.scrollOn=true;
     }
@@ -81,9 +80,13 @@ export class NavegationComponent implements OnInit {
     if(this.route.url.length <= 1 && window.scrollY == 0){
       this.scrollOn = false;
       this.fieldOn = false;
-    }else if(window.scrollY > 1){
+    }else if( this.route.url.length <= 1 && window.scrollY > 1){
       this.typeScroll = "arrow_upward";
       this.scrollOn = true;
+    }else if(this.route.url.length > 1 && window.scrollY >= 0){
+      this.typeScroll = "arrow_back";
+      this.menuOn = false;
+      this.scrollOn = false;
     }else{
       this.typeScroll = "arrow_back";
       this.scrollOn = true;
@@ -107,6 +110,4 @@ export class NavegationComponent implements OnInit {
       }, 500);
     }
   }
-
-  
 }

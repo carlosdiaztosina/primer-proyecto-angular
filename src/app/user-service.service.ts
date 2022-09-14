@@ -33,13 +33,9 @@ export class UserService {
 
   getUser() {
     let session_id = this.getSessionId();
-    console.log("session id despues de llamar al metodo getSessionid", session_id);
-    
-    console.log( 'session_id despues de llamar a getSessionId', this.session_id);
     if ( session_id) {
       const path = this.rootURL + "/account?" + this.apiKey + "&session_id=" + session_id;
       this.http.get(path).subscribe(user => {
-        console.log('AA', user);
         this.setUser(user);
       });
     }

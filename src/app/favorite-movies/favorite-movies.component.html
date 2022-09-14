@@ -1,21 +1,26 @@
 <div class="container">
     <app-navegation class="navBar"></app-navegation>
-    <div class="flexContainer" *ngFor="let movie of favoriteMovies">
-        <div>
-            <img class="image" alt="" onerror="this.src='./assets/not-found.jpg'"
-                src="{{movieImgPath + movie.poster_path }}">
-        </div>
-        <div class="card">
-            <div class="titleCardContainer">
-                <h2>{{movie.title}}</h2>
-                <mat-icon (click)="deleteFavoriteMovie(movie.id)">delete</mat-icon>
-            </div>
+    <div *ngIf="this.session_id; else elseBlock">
+        <div class="flexContainer" *ngFor="let movie of favoriteMovies">
             <div>
-                <p>{{movie.release_date}}</p>
+                <img class="image" alt="" onerror="this.src='./assets/not-found.jpg'"
+                    src="{{movieImgPath + movie.poster_path }}">
             </div>
-            <div>
-                <p>{{movie.overview}}</p>
+            <div class="card">
+                <div class="titleCardContainer">
+                    <h2>{{movie.title}}</h2>
+                    <mat-icon (click)="deleteFavoriteMovie(movie.id)">delete</mat-icon>
+                </div>
+                <div>
+                    <p>{{movie.release_date}}</p>
+                </div>
+                <div>
+                    <p>{{movie.overview}}</p>
+                </div>
             </div>
         </div>
     </div>
+    <ng-template #elseBlock>
+        <h2>Hola No estas Iniciado</h2>
+    </ng-template>
 </div>

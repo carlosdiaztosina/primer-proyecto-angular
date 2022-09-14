@@ -150,13 +150,12 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
   getFavoriteMovies() {
     if(this.session_id){
-      this._movie.getFavoriteMovies(this.session_id,this.user.id).subscribe((data:any) =>{
+      this._movie.getFavoriteMovies(this.session_id,this.user.id)?.subscribe((data:any) =>{
         data.results.map((element: any) => {
           this.favoriteMovies.push(element);
         })
         this.favoriteMovies.forEach((element: any) => {
           if (element.id == this.idMovie) {
-            console.log("si es una peli favorita")
             this.favoriteMovie = true;
           }
         });

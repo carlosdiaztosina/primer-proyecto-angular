@@ -37,12 +37,9 @@ export class MoviesListComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUser();
     this.userService.userObservable.subscribe(user => {
-      console.log('user', user);
     });
-
     this.getMovies();
     this.Search(null);
-    // this.getUser();
   }
 
 
@@ -51,7 +48,9 @@ export class MoviesListComponent implements OnInit {
       this.imgMovie = data.results.poster_path ? this.movieImgPath + data.results.poster_path : './assets/not-found.jpg';
       this.page = data.page;
       data.results.map((element: any) => {
-        this.movies.push(element);
+        if(element.poster_path){
+          this.movies.push(element);
+        }
       });
     });
   }
@@ -118,14 +117,6 @@ export class MoviesListComponent implements OnInit {
 
     this.getMovies();
   }
-
-  // getUser() {
-  //   if (this.session_id) {
-  //     this._movies.getUser(this.session_id).subscribe(data => {
-  //       sessionStorage.setItem("user", JSON.stringify(data));
-  //     })
-  //   }
-  // }
 
   downMenu() {
     if (!this.menuOn) {

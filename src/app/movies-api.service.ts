@@ -53,13 +53,7 @@ export class MoviesApiService {
       return this.http.post(this.path, { request_token: tokenValidate });
     }
 
-    // getUser(session_id: any): Observable<any> {
-    //   this.path = this.rootURL + "/account?" + this.apiKey + "&session_id=" + session_id;
-    //   return this.http.get(this.path);
-    // }
-
     setRateMovie(idMovie: any, rate: any, session_id: any): Observable<any> {
-
       this.path = this.rootURL + "/movie/" + idMovie + "/rating?" + this.apiKey + "&session_id=" + session_id;
       return this.http.post(this.path, { value: rate });
     }
@@ -76,9 +70,11 @@ export class MoviesApiService {
       return this.http.post(this.path, { media_type: "movie", media_id: idMovie, favorite: favoriteMovie });
     }
 
-    getFavoriteMovies(session_id:any,idUser:any ): Observable<any> {
-      this.path = this.rootURL + "/account/" + idUser + "/favorite/movies?" + this.apiKey + "&session_id=" + session_id;
-      return this.http.get(this.path);
+    getFavoriteMovies(session_id:any,idUser:any ): Observable<any> | void {
+      if(session_id){
+        this.path = this.rootURL + "/account/" + idUser + "/favorite/movies?" + this.apiKey + "&session_id=" + session_id;
+        return this.http.get(this.path);
+      }
     }
 
   }
