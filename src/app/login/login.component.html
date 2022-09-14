@@ -1,7 +1,7 @@
 <app-navegation></app-navegation>
 <div class="container">
     <h2 class="title">Login</h2>
-    <h4 class="{{this.errorMessage ? 'invalidLogin':'validLogin'}}">{{this.errorMessage}}</h4>
+    <!-- <h4 class="{{this.errorMessage ? 'invalidLogin':'validLogin'}}">{{this.errorMessage}}</h4> -->
     <form class="form" [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
 
         <div>

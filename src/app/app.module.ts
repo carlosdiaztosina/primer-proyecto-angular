@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MoviesListComponent } from './movies-list/movies-list.component';
-import { MovieDeteilsComponent } from './movie-deteils/movie-deteils.component';
+import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { LoginComponent } from './login/login.component';
 import { FavoriteMoviesComponent } from './favorite-movies/favorite-movies.component';
 
@@ -22,7 +22,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
   declarations: [
     AppComponent,
     MoviesListComponent,
-    MovieDeteilsComponent,
+    MovieDetailsComponent,
     LoginComponent,
     FavoriteMoviesComponent,
     NavegationComponent

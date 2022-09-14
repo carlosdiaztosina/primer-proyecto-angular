@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class NavigationService {
+  //Aquí hacer un Subject<String>
   public text="";
 
   constructor() { }

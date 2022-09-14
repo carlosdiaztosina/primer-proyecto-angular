@@ -12,7 +12,7 @@
     <ng-template #elseBlock>
       <ul class="movisList">
         <li class="movieCard" *ngFor="let movie of movies; let i = index">
-          <a href="search/{{ movie.id }}">
+          <a routerLink="search/{{ movie.id }}">
             <h3 class="movieTitle">{{ movie.title }}</h3>
             <img class="movieImg" onerror="this.src='./assets/not-found.jpg'"
               src="{{movieImgPath + movie.poster_path }}" alt="" />

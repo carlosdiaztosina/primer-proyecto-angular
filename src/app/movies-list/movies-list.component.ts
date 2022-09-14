@@ -2,6 +2,8 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MoviesApiService } from '../movies-api.service';
 import { Router } from '@angular/router';
 import { NavigationService } from '../navigation/navigation.service';
+import { UserService } from '../user-service.service';
+import { BehaviorSubject, interval, tap } from 'rxjs';
 
 @Component({
   selector: 'app-movies-list',
@@ -22,16 +24,25 @@ export class MoviesListComponent implements OnInit {
   menuOn = false;
 
   session_id = sessionStorage.getItem('sessionId');
-
+  counter = new BehaviorSubject(0)
   private debounceTimer?: NodeJS.Timeout
 
-  constructor(private _movies: MoviesApiService, private route: Router, private navigationService: NavigationService ) { }
+  constructor(
+    private _movies: MoviesApiService,
+    private route: Router,
+    private navigationService: NavigationService,
+    private userService: UserService) { }
 
 
   ngOnInit(): void {
+    this.userService.getUser();
+    this.userService.userObservable.subscribe(user => {
+      console.log('user', user);
+    });
+
     this.getMovies();
     this.Search(null);
-    this.getUser();
+    // this.getUser();
   }
 
 
@@ -70,8 +81,7 @@ export class MoviesListComponent implements OnInit {
   }
 
   Search(event: any | any) {
-    console.log(event);
-    if(this.navigationService.getText().length > 1){
+    if (this.navigationService.getText().length > 1) {
       event = this.navigationService.getText();
     }
     if (!!event) {
@@ -79,7 +89,7 @@ export class MoviesListComponent implements OnInit {
       this.debounceTimer = setTimeout(() => {
         this.text = event.target.value;
         this.movies = [];
-        if (event.target.value.length > 0 ) {
+        if (event.target.value.length > 0) {
           this._movies.getMoviesSearch(this.text)
             .subscribe((data) => {
               if (data.total_results < 1 && this.text.length > 1) {
@@ -109,27 +119,13 @@ export class MoviesListComponent implements OnInit {
     this.getMovies();
   }
 
-  login(login: string) {
-    if (login == "login") {
-      this.route.navigate(['/login']);
-    } else if (login == "favorite") {
-      this.route.navigate(['/favorite/movies']);
-    } else {
-      this._movies.setLogout()
-      this.route.navigate([''])
-        .then(() => {
-          window.location.reload();
-        });
-    }
-  }
-
-  getUser() {
-    if (this.session_id) {
-      this._movies.getUser(this.session_id).subscribe(data => {
-        sessionStorage.setItem("user", JSON.stringify(data));
-      })
-    }
-  }
+  // getUser() {
+  //   if (this.session_id) {
+  //     this._movies.getUser(this.session_id).subscribe(data => {
+  //       sessionStorage.setItem("user", JSON.stringify(data));
+  //     })
+  //   }
+  // }
 
   downMenu() {
     if (!this.menuOn) {

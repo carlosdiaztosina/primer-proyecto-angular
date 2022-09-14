@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MonoTypeOperatorFunction, Observable, range, throwError } from 'rxjs';
+import { BehaviorSubject, MonoTypeOperatorFunction, Observable, range, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MoviesApiService {
-  pipe(arg0: MonoTypeOperatorFunction<unknown>) {
-    throw new Error('Method not implemented.');
-  }
   path ="";
   apiKey="api_key=f160e6dfe95f15b5bf585afa806632f9";
   rootURL = 'https://api.themoviedb.org/3';
@@ -56,15 +53,10 @@ export class MoviesApiService {
       return this.http.post(this.path, { request_token: tokenValidate });
     }
 
-    setLogout() {
-      sessionStorage.removeItem('sessionId');
-      sessionStorage.removeItem('user');
-    }
-
-    getUser(session_id: any): Observable<any> {
-      this.path = this.rootURL + "/account?" + this.apiKey + "&session_id=" + session_id;
-      return this.http.get(this.path);
-    }
+    // getUser(session_id: any): Observable<any> {
+    //   this.path = this.rootURL + "/account?" + this.apiKey + "&session_id=" + session_id;
+    //   return this.http.get(this.path);
+    // }
 
     setRateMovie(idMovie: any, rate: any, session_id: any): Observable<any> {
 
@@ -72,9 +64,11 @@ export class MoviesApiService {
       return this.http.post(this.path, { value: rate });
     }
 
-    getRate(idUser: any, session_id: any): Observable<any> {
-      this.path = this.rootURL + "/account/" + idUser + "/rated/movies?" + this.apiKey + "&language=en-US&sort_by=created_at.asc&page=1&session_id=" + session_id;
-      return this.http.get(this.path);
+    getRate(idUser: any, session_id: any): Observable<any> | void {
+      if (session_id) {
+        this.path = this.rootURL + "/account/" + idUser + "/rated/movies?" + this.apiKey + "&language=en-US&sort_by=created_at.asc&page=1&session_id=" + session_id;
+        return this.http.get(this.path);
+      }
     }
 
     setFavoriteMovie(session_id: any, idUser: any, idMovie: any, favoriteMovie: any): Observable<any> {

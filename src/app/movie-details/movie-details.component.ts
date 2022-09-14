@@ -2,22 +2,23 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MoviesApiService } from '../movies-api.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { UserService } from '../user-service.service';
 
 @Component({
-  selector: 'app-movie-deteils',
-  templateUrl: './movie-deteils.component.html',
-  styleUrls: ['./movie-deteils.component.scss']
+  selector: 'app-movie-details',
+  templateUrl: './movie-details.component.html',
+  styleUrls: ['./movie-details.component.scss']
 })
 
-export class MovieDeteilsComponent implements OnInit, OnDestroy {
+export class MovieDetailsComponent implements OnInit, OnDestroy {
   movie: any = [];
   rateMovies: any = [];
   favoriteMovies: any = [];
 
   idMovie: any;
   movieImgPath = 'https://image.tmdb.org/t/p/w300';
-  session_id = sessionStorage.getItem('sessionId');
-  user = JSON.parse(sessionStorage.getItem('user')!);
+  session_id :any;
+  user :any;
   
   error = '';
   stars: number[] = [1, 2, 3, 4, 5];
@@ -33,7 +34,8 @@ export class MovieDeteilsComponent implements OnInit, OnDestroy {
   constructor(
     private _movie: MoviesApiService, 
     private activatedRoute: ActivatedRoute, 
-    private route : Router
+    private route : Router,
+    private userService: UserService,
   ) { 
     //
   }
@@ -43,22 +45,18 @@ export class MovieDeteilsComponent implements OnInit, OnDestroy {
       this.idMovie = params['id'];
       this.getMovieDeteils(this.idMovie)
     });
-    if(this.session_id){
+    this.userService.userObservable.subscribe(user => {
+      this.user = user;
+    });
+    this.session_id = this.userService.getSessionId();
+
       this.getRate();
       this.getFavoriteMovies();
-    }else{
+  
       this.favoriteMovie = false;
       this.selectedValue =  0;
-    }
-
-    this.counter.subscribe(counterValue => console.log('current counter value =', counterValue))
+   
   }
-
-  incrementCounter() {
-    const currentValue = this.counter.value
-    this.counter.next(currentValue + 1)
-  }
-  
 
   getMovieDeteils(id: any) {
     this.subscriptions.add(
@@ -75,7 +73,7 @@ export class MovieDeteilsComponent implements OnInit, OnDestroy {
   getRate() {
     this.isMouseover = true;
     this.subscriptions.add(
-      this._movie.getRate(this.user.id, this.session_id).subscribe(data => {
+      this._movie.getRate(this.user.id, this.session_id)?.subscribe(data => {
 
         data.results.map((element: any) => {
           this.rateMovies.push(element);

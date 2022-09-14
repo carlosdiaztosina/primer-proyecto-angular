@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from '../login/login.service';
 import { MoviesApiService } from '../movies-api.service';
+import { UserService } from '../user-service.service';
 import { NavigationService } from './navigation.service';
 
 @Component({
@@ -13,7 +15,7 @@ export class NavegationComponent implements OnInit {
   menuOn = false;
   fieldOn = false;
   textField:any;
-  session_id = sessionStorage.getItem('sessionId');
+  session_id:any;
   typeScroll="arrow_back";
   scrollOn=false;
 
@@ -21,9 +23,16 @@ export class NavegationComponent implements OnInit {
 
   text : any;
 
-  constructor(private _movies: MoviesApiService, private route: Router, private naviServ: NavigationService) { }
+  constructor(
+    private _movies: MoviesApiService, 
+    private route: Router, 
+    private naviServ: NavigationService,
+    private userService: UserService,
+    private loginService : LoginService) { }
 
   ngOnInit(): void {
+    this.session_id = this.userService.getSessionId();
+    console.log(this.session_id)
     if(this.route.url.length > 1){
       this.scrollOn=true;
     }
@@ -38,7 +47,10 @@ export class NavegationComponent implements OnInit {
     } else if (login == "favorite") {
       this.route.navigate(['/favorite/movies']);
     } else {
-      this._movies.setLogout()
+      this.session_id = null;
+      this.loginService.setSessionId(null);
+      // this._movies.setLogout();
+      // this.userService.dataObservable.next(null);
       // this.route.navigate([''])
       //   .then(() => {
       //     window.location.reload();
