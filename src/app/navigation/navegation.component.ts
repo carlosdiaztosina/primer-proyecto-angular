@@ -32,7 +32,7 @@ export class NavegationComponent implements OnInit {
 
   ngOnInit(): void {
     this.session_id = this.userService.getSessionId();
-    console.log(this.session_id)
+    console.log('aa', this.session_id);
     if(this.route.url.length > 1){
       this.scrollOn=true;
     }
@@ -41,20 +41,19 @@ export class NavegationComponent implements OnInit {
     })
   }
 
+  logout() {
+    this.session_id = null;
+    this.loginService.setSessionId(null);
+    sessionStorage.removeItem('sessionId');
+  }
+
   login(login: string) {
     if (login == "login") {
       this.route.navigate(['/login']);
     } else if (login == "favorite") {
       this.route.navigate(['/favorite/movies']);
     } else {
-      this.session_id = null;
-      this.loginService.setSessionId(null);
-      // this._movies.setLogout();
-      // this.userService.dataObservable.next(null);
-      // this.route.navigate([''])
-      //   .then(() => {
-      //     window.location.reload();
-      //   });
+      this.logout();
     }
   }
 

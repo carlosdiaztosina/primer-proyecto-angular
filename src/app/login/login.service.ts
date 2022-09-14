@@ -8,7 +8,9 @@ import { MoviesApiService } from '../movies-api.service';
     providedIn: 'root'
 })
 export class LoginService {
-    private sessionSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+    private sessionSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
+        this.getSessionIdFromStorage() || null
+    );
     public sessionObservable = this.sessionSubject.asObservable();
 
     errorMessage: string | any;
@@ -28,7 +30,12 @@ export class LoginService {
     }
 
     setSessionId(data: any) {
+        sessionStorage.setItem('sessionId', data);
         this.sessionSubject.next(data);
+    }
+
+    getSessionIdFromStorage(){
+        return sessionStorage.getItem('sessionId');
     }
 
     login(form: any) {
@@ -38,7 +45,6 @@ export class LoginService {
                 if (data.success) {
                     this.getSessionId(data.request_token).subscribe((dataSession: any) => {
                         const { success, session_id } = dataSession;
-                        // console.log(session_id);
                         success && this.setSessionId(session_id);
                         this.route.navigate(['/']);
                     })

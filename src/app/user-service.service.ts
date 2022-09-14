@@ -25,9 +25,7 @@ export class UserService {
   }
 
   getSessionId() {
-    
     this.loginService.sessionObservable.subscribe(data => {
-      console.log(data)
       this.session_id = data;
     });
     return this.session_id;
