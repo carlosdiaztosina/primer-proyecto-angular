@@ -15,7 +15,7 @@
           <a routerLink="search/{{ movie.id }}">
             <h3 class="movieTitle">{{ movie.title }}</h3>
             <img class="movieImg" onerror="this.src='./assets/not-found.jpg'"
-              src="{{movieImgPath + movie.poster_path }}" alt="" />
+              src="{{movieImgPath + movie.poster_path }}" alt="" loading="lazy" />
           </a>
           <hr>
         </li>

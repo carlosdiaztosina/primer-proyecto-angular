@@ -14,7 +14,7 @@ export class MoviesListComponent implements OnInit {
   movies: any[] = [];
   movieImgPath = 'https://image.tmdb.org/t/p/w300';
   imgMovie = '';
-  page = 0;
+  page = 1;
   text = '';
   error = '';
   valueTextField: any;
@@ -35,20 +35,28 @@ export class MoviesListComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.userService.getUser();
     this.userService.userObservable.subscribe(user => {
-      console.log(user)
+
     });
     this.getMovies();
     this.Search(null);
+    this.navigationService.textObservable.subscribe(text => {
+      if(text){
+        this.text = text;
+        this.getMoviesSearch(this.text);
+      }else{
+        this.movieTitle();
+      }
+    })
   }
 
 
   getMovies() {
     this._movies.getMovies().subscribe((data) => {
       this.imgMovie = data.results.poster_path ? this.movieImgPath + data.results.poster_path : './assets/not-found.jpg';
-      this.page = data.page;
       data.results.map((element: any) => {
-        if(element.poster_path){
+        if (element.poster_path) {
           this.movies.push(element);
         }
       });
@@ -80,28 +88,13 @@ export class MoviesListComponent implements OnInit {
   }
 
   Search(event: any | any) {
-    if (this.navigationService.getText().length > 1) {
-      event = this.navigationService.getText();
-    }
     if (!!event) {
       if (this.debounceTimer) clearTimeout(this.debounceTimer);
       this.debounceTimer = setTimeout(() => {
         this.text = event.target.value;
         this.movies = [];
         if (event.target.value.length > 0) {
-          this._movies.getMoviesSearch(this.text)
-            .subscribe((data) => {
-              if (data.total_results < 1 && this.text.length > 1) {
-                this.error = "The Movie that you are searching not exit";
-              } else {
-                this.movies = [];
-                this.page = data.page;
-                this.error = "";
-                data.results.map((element: any) => {
-                  this.movies.push(element);
-                });
-              }
-            });
+          this.getMoviesSearch(this.text)
         } else {
           this.error = "";
           this.getMovies();
@@ -110,11 +103,29 @@ export class MoviesListComponent implements OnInit {
     }
   }
 
+  getMoviesSearch(text: any) {
+
+    this._movies.getMoviesSearch(text)
+      .subscribe((data) => {
+        if (data.total_results < 1 && text.length > 1) {
+          this.error = "The Movie that you are searching not exit";
+        } else {
+          window.scrollTo(0, 0);
+          this.movies = [];
+          this.page = data.page;
+          this.error = "";
+          data.results.map((element: any) => {
+            this.movies.push(element);
+          });
+        }
+      });
+
+  }
+
   movieTitle() {
     this.movies = [];
     this.text = "";
     this.error = "";
-
     this.getMovies();
   }
 
@@ -125,7 +136,4 @@ export class MoviesListComponent implements OnInit {
       this.menuOn = false;
     }
   }
-
-
-
 }

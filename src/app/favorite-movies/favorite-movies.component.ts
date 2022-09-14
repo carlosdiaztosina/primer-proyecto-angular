@@ -24,14 +24,14 @@ export class FavoriteMoviesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.userService.getUser();
     this.userService.userObservable.subscribe(user => {
       this.user = user;
     });
     this.loginService.sessionObservable.subscribe(data => {
       this.session_id = data
       this.getFavoriteMovies();
-    });//tengo que utilizar el observer
+    });
   }
 
   getFavoriteMovies() {
@@ -49,7 +49,8 @@ export class FavoriteMoviesComponent implements OnInit {
 
   deleteFavoriteMovie(movieId: any) {
     this._movie.setFavoriteMovie(this.session_id, this.user.id, movieId, false).subscribe(data => {
-      window.location.reload();
+      this.favoriteMovies=[];
+      this.getFavoriteMovies()
     });
   }
 }

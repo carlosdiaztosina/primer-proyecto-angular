@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params} from '@angular/router';
 import { MoviesApiService } from '../movies-api.service';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { UserService } from '../user-service.service';
 import { LoginService } from '../login/login.service';
 
@@ -23,7 +23,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
   error = '';
   stars: number[] = [1, 2, 3, 4, 5];
-  selectedValue: number = 0;
+  selectedValue: any;
   isMouseover = true;
   rate = 0;
 
@@ -34,7 +34,6 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private _movie: MoviesApiService,
     private activatedRoute: ActivatedRoute,
-    private route: Router,
     private userService: UserService,
     private loginService: LoginService
   ) {
@@ -50,9 +49,11 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
       });
       this.userService.getUser();
       this.userService.userObservable.subscribe(user => {
-        this.user = user;
-        this.getRate();
-        this.getFavoriteMovies();
+        if(user){
+          this.user = user;
+          this.getRate();
+          this.getFavoriteMovies();
+        }
       });
     });
   }
@@ -69,7 +70,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
   getRate() {
     this.isMouseover = true;
-    if(this.session_id){
+    if(this.user){
       this.subscriptions.add(
         this._movie.getRate(this.user.id, this.session_id)?.subscribe(data => {
           data.results.map((element: any) => {
@@ -107,6 +108,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   }
 
   addClass(star: number) {
+    this.selectedValue = star;
     if (this.isMouseover) {
       this.selectedValue = star;
     }
@@ -120,13 +122,12 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
   setRateMovie(rate:any){
     this._movie.setRateMovie(this.movie.id, rate, this.session_id).subscribe(data => {
-      this.ngOnInit();
+      this.getRate();
     });
   }
 
 
   setFavoriteMovie(favoriteMovie:any) {
-    console.log(favoriteMovie)
     if (!favoriteMovie) {
       this.favoriteMovie = true
       this._movie.setFavoriteMovie(this.session_id, this.user.id, this.idMovie, this.favoriteMovie).subscribe();

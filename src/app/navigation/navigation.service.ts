@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NavigationService {
   //Aquí hacer un Subject<String>
-  public text="";
+  private textSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public textObservable = this.textSubject.asObservable();
+
 
   constructor() { }
 
- setText(text: string) {
-  this.text = text;
- }
-
- getText(){
-  return this.text;
+ setText(text: any) {
+  this.textSubject.next(text);
  }
 }
