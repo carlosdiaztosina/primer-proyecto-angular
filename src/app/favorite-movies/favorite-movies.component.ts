@@ -28,13 +28,14 @@ export class FavoriteMoviesComponent implements OnInit {
     this.userService.userObservable.subscribe(user => {
       this.user = user;
     });
-    this.getFavoriteMovies();
     this.loginService.sessionObservable.subscribe(data => {
-      console.log(data)
+      this.session_id = data
+      this.getFavoriteMovies();
     });//tengo que utilizar el observer
   }
 
   getFavoriteMovies() {
+    
     if (this.session_id) {
       this._movie.getFavoriteMovies(this.session_id, this.user)?.subscribe((data: any) => {
         data.results.map((element: any) => {

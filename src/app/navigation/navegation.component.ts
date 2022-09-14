@@ -17,7 +17,8 @@ export class NavegationComponent implements OnInit {
   textField:any;
   session_id:any;
   typeScroll="arrow_back";
-  scrollOn=false;
+  scrollOnArrow=false;
+  scrollOnSearch=false;
 
   private debounceTimer?: NodeJS.Timeout
 
@@ -33,7 +34,8 @@ export class NavegationComponent implements OnInit {
   ngOnInit(): void {
     this.session_id = this.userService.getSessionId();
     if(this.route.url.length > 1){
-      this.scrollOn=true;
+      this.scrollOnArrow=true;
+      this.scrollOnSearch=false;
     }
     window.addEventListener("scroll",(event)=>{
       this.getScroll();
@@ -78,18 +80,22 @@ export class NavegationComponent implements OnInit {
 
   getScroll(){
     if(this.route.url.length <= 1 && window.scrollY == 0){
-      this.scrollOn = false;
+      this.scrollOnArrow=false;
+      this.scrollOnSearch=false;
       this.fieldOn = false;
-    }else if( this.route.url.length <= 1 && window.scrollY > 1){
+    }else if(this.route.url.length > 1  && window.scrollY == 0){
+      this.typeScroll = "arrow_back";
+      this.scrollOnArrow=true;
+      this.scrollOnSearch=false;
+      this.fieldOn = false;
+    }else if(this.route.url.length > 1  && window.scrollY > 1){
       this.typeScroll = "arrow_upward";
-      this.scrollOn = true;
-    }else if(this.route.url.length > 1 && window.scrollY >= 0){
-      this.typeScroll = "arrow_back";
-      this.menuOn = false;
-      this.scrollOn = false;
+      this.scrollOnArrow=true;
+      this.scrollOnSearch=false;
     }else{
-      this.typeScroll = "arrow_back";
-      this.scrollOn = true;
+      this.typeScroll = "arrow_upward";
+      this.scrollOnArrow=true;
+      this.scrollOnSearch=true;
     }
   }
 

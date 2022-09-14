@@ -33,7 +33,7 @@ export class UserService {
 
   getUser() {
     let session_id = this.getSessionId();
-    if ( session_id) {
+    if (session_id) {
       const path = this.rootURL + "/account?" + this.apiKey + "&session_id=" + session_id;
       this.http.get(path).subscribe(user => {
         this.setUser(user);

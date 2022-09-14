@@ -4,7 +4,8 @@
 </div>
 <ng-template #elseBlock>
   <div class="detailsContainer">
-    <img class="movieImg col" src="{{movieImgPath + movie.poster_path}}" alt="" />
+    <img class="movieImg col" onerror="this.src='./assets/not-found.jpg'" src="{{movieImgPath + movie.poster_path}}"
+      alt="" />
     <div class="col movieDetails">
       <p><strong>Tittle: </strong>
         {{movie.title}}
@@ -20,8 +21,9 @@
     <ul class="list-inline rating-list" *ngFor="let star of stars; let i= index">
       <li (click)="countStar(star)" [ngClass]="{'selected': (star <= selectedValue)}" (mouseover)="addClass(star)"
         (mouseout)="removeClass()"> <span class="material-icons">star</span>
-      </li >
+      </li>
     </ul>
-    <span  class="material-icons {{ this.favoriteMovie ? 'selectedFavorite':'iconFavorite'}}" (click)="setFavoriteMovie()">favorite</span>
+    <span class="material-icons {{ this.favoriteMovie ? 'selectedFavorite':'iconFavorite'}}"
+      (click)="setFavoriteMovie(this.favoriteMovie)">favorite</span>
   </div>
 </ng-template>

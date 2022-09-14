@@ -35,8 +35,8 @@ export class MoviesListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.userService.getUser();
     this.userService.userObservable.subscribe(user => {
+      console.log(user)
     });
     this.getMovies();
     this.Search(null);
