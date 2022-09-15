@@ -19,7 +19,6 @@ import { NavegationComponent } from './navigation/navegation.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CarouselComponent } from './carousel/carousel.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { NavigationService } from '../navigation/navigation.service';
 import { UserService } from '../user-service.service';
 import { BehaviorSubject, interval, tap } from 'rxjs';
-
+import SwiperCore, { SwiperOptions,Navigation, Pagination, Scrollbar, A11y } from 'swiper'
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 @Component({
   selector: 'app-movies-list',
   templateUrl: './movies-list.component.html',
@@ -50,7 +51,6 @@ export class MoviesListComponent implements OnInit {
       }
     })
   }
-
 
   getMovies() {
     this._movies.getMovies().subscribe((data) => {
