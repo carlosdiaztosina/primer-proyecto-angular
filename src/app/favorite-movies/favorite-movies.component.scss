@@ -30,20 +30,47 @@
     .card {
         margin: 10px;
         display: grid;
+        width: 100%;
 
         .titleCardContainer {
             display: flex;
             justify-content: space-between;
+
             h2 {
                 font-size: 30px;
                 margin: 0;
             }
 
-            mat-icon{
+            mat-icon {
                 color: red;
                 cursor: pointer;
             }
         }
+
+        .dateRateContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+
+            .rating-list {
+                display: inline-block;
+                list-style: none;
+                padding: 5px;
+            }
+
+            .rating-list li {
+                font-size: 20px;
+                float: right;
+                color: rgb(174, 173, 173);
+                padding: 10px 5px;
+            }
+
+            .rating-list li.selected {
+                color: #ffd700;
+            }
+
+        }
+
 
         p {
             margin: 0;

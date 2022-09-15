@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule }  from '@angular/material/button-toggle';
 import { NavegationComponent } from './navigation/navegation.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MovieDetailsComponent,
     LoginComponent,
     FavoriteMoviesComponent,
-    NavegationComponent
+    NavegationComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
