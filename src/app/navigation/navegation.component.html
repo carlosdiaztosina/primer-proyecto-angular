@@ -8,6 +8,9 @@
     </div>
     <div class="toggleContainer" *ngIf="!this.session_id; else logout">
         <mat-icon class="icon" (click)="login('login')">person</mat-icon>
+        <mat-icon class="{{this.scrollOnSearch ? 'selected':'logout'}}" (click)="fieldTextOn()">search</mat-icon>
+        <input class="{{this.fieldOn ? 'selected' : 'logout'}}" type="text" name="textField" id="textField"
+                (input)="Search($event)">
     </div>
     <ng-template #logout>
         <div class="toggleContainer">

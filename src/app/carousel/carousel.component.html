@@ -1,27 +1,18 @@
 <div>
     <swiper
+    [config]="config"
     [navigation]="true"
     [pagination]="{ clickable: true }"
-    [loop]="true"
-    [autoplay]="true"
     (slideChange)="onSlideChange()"
-    effect="cube"
+    
     class="swiper">
-        <ng-template swiperSlide>
-            <div class="swiperSliderFisrt">
-                <img src="./assets/top_ten.png" alt="" class="topTen">
-            </div>
-        </ng-template>
         <ng-container *ngFor="let movie of this.movies; index as i">
             <ng-template swiperSlide >
-                <div class="swiperSlider">
-                    <!-- <div class="titleContainer">
-                        <span class="titleCarousel" slot="wrapper-end">{{movie.title}}</span>
-                    </div> -->
+                <div class="swiper-slider-content">
                     <div class="topMovie">
-                        <h2>{{i + 1}}</h2>
+                        <h2 class="title{{i}}">{{i + 1}}</h2>
                         <img onerror="this.src='./assets/not-found.jpg'"
-                            src="{{movieImgPath + movie.poster_path }}" alt="" />
+                            src="{{movieImgPath + movie.backdrop_path }}" alt="" class="movieImg" />
                     </div>
                 </div>
             </ng-template>

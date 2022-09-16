@@ -18,7 +18,7 @@ export class NavegationComponent implements OnInit {
   session_id:any;
   typeScroll="arrow_back";
   scrollOnArrow=false;
-  scrollOnSearch=false;
+  scrollOnSearch=true;
 
   private debounceTimer?: NodeJS.Timeout
 
@@ -81,7 +81,7 @@ export class NavegationComponent implements OnInit {
   getScroll(){
     if(this.route.url.length <= 1 && window.scrollY == 0){
       this.scrollOnArrow=false;
-      this.scrollOnSearch=false;
+      this.scrollOnSearch=true;
       this.fieldOn = false;
     }else if(this.route.url.length > 1  && window.scrollY == 0){
       this.typeScroll = "arrow_back";
