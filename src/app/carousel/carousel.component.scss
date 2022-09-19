@@ -1,77 +1,60 @@
 .swiper {
-    height: 370px;
-    width: auto;
-    --swiper-theme-color:#d8d5d5;
+    --swiper-theme-color: #d8d5d5;
 }
 
 
 
-.swiper-slider-content {
+
+.topMovie {
     display: flex;
+    align-items: center;
+    align-content: center;
     justify-content: center;
-    align-items: stretch;
-    flex-direction: column;
-    height: auto;
-    width: auto;
-    
-    
-    .topMovie {
-        // max-width: 550px;
-        display: flex;
-        align-items: center;
-        align-content: center;
-        justify-content: center;
 
-        .topMovie:hover{
-            opacity: 0.6;
+    .topMovie:hover {
+        opacity: 0.6;
+    }
+
+    .movieImg {
+        height: 350px;
+        width: 75%;
+        border-radius: 7px;
+        box-shadow: -20px 0px 15px #121212;
+        object-fit: cover;
+
+        :hover {
+            opacity: 0.7;
         }
-        
-        .movieImg{
-            height: 350px;
-            width: 80%;
-            border-radius: 7px;
-            box-shadow: -20px 0px 15px #121212;
+    }
 
-            :hover{
-                opacity: 0.7;
-            }
-        }   
+    h2 {
+        font-size: 15rem;
+        z-index: -1;
+        margin: 0;
+        position: relative;
+        left: 1%;
+        letter-spacing: -45px;
+        color: #121212;
+        text-shadow: 2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff,
+            1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+    }
 
-        h2 {
-            font-size: 15rem;
-            z-index: -1;
-            margin: 0;
-            position: relative;
-            left: 2%;
-            letter-spacing: -45px;
-            color: #121212;
-            text-shadow: 2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff,
-               1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
-        }
-
-        .title9{
-            left: 6% !important;
-            margin-right: 10px;
-        }
+    .title9 {
+        left: -7% !important;
+        width: 92px;
     }
 }
 
+.swiperDetails{
+    margin: 30px;
+}
 
-// .titleContainer {
-//     position: absolute;
-//     z-index: 2;
-//     top: 0;
-//     background-color: #504d4d75;
-//     width: 300px;
-//     height: 30px;
-//     text-overflow: ellipsis;
-//     overflow: hidden;
-//     line-break: anywhere;
+.movieImgDetails {
+    width: auto;
+    height: 150px;
+}
 
-//     .titleCarousel {
-//         display: flex;
-//         justify-content: center;
-//         font-size: 24px;
-//         align-items: center;
-//     }
-// }
+
+.movieImgDetails:hover {
+    opacity: 0.6;
+}

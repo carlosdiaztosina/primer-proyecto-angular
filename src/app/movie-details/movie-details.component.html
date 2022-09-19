@@ -26,4 +26,5 @@
     <span class="material-icons {{ this.favoriteMovie ? 'selectedFavorite':'iconFavorite'}}"
       (click)="setFavoriteMovie(this.favoriteMovie)">favorite</span>
   </div>
+  <app-carousel [idMovie]="this.idMovie" class="swiperDetails"></app-carousel>
 </ng-template>

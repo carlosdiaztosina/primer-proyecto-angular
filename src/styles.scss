@@ -46,3 +46,23 @@ $first-proyect-theme: mat.define-light-theme((
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.mat-select-value{
+  color: white !important;
+}
+
+.mat-select-arrow{
+  color: white !important;
+}
+
+.mat-form-field {
+  margin-left: 50px;
+}
+
+.mat-form-field-label {
+  color: white;
+}
+
+.mat-form-field-ripple {
+  background-color: white;
+}
+

@@ -1,21 +1,50 @@
-<div>
-    <swiper
-    [config]="config"
-    [navigation]="true"
-    [pagination]="{ clickable: true }"
-    (slideChange)="onSlideChange()"
-    
-    class="swiper">
+<div *ngIf="!this.idMovie;else elseBlockCarousel">
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Genres</mat-label>
+            <mat-select>
+                <mat-option (click)="getBestMovies(null)" value=Discover>Discover</mat-option>
+                <mat-option *ngFor="let genre of this.genres[0]?.genres" [value]="genre.name"
+                    (click)="getBestMovies(genre.id)">
+                    {{genre.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <swiper [config]="config" class="swiper">
         <ng-container *ngFor="let movie of this.movies; index as i">
-            <ng-template swiperSlide >
+            <ng-template swiperSlide>
                 <div class="swiper-slider-content">
                     <div class="topMovie">
                         <h2 class="title{{i}}">{{i + 1}}</h2>
-                        <img onerror="this.src='./assets/not-found.jpg'"
-                            src="{{movieImgPath + movie.backdrop_path }}" alt="" class="movieImg" />
+                        <img onerror="this.src='./assets/not-found.jpg'" src="{{movieImgPath + movie.backdrop_path }}"
+                            alt="" class="movieImg" />
                     </div>
                 </div>
             </ng-template>
         </ng-container>
     </swiper>
 </div>
+<ng-template #elseBlockCarousel>
+    <div  class="swiperDetails" *ngFor="let moviesRealeted of this.relatedMovies">
+        <h2 style="color: white;">{{moviesRealeted.title}}</h2>
+        <swiper [config]="configDetails" class="swiper">
+            <ng-container   *ngFor="let movies of moviesRealeted.relatedMovies">
+                <ng-template swiperSlide>
+                    <div class="swiper-slider-content">
+                        <a routerLink="/search/{{movies.id}}">
+                            <img onerror="this.src='./assets/not-found.jpg'" src="{{movieImgPath2 + movies.backdrop_path }}"
+                                alt="" class="movieImgDetails" lazy/>
+                        </a>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </swiper>
+        <!-- <div *ngFor="let movies of moviesRealeted.relatedMovies">
+            <p style="color: white;">{{movies.title}}</p>
+            <img onerror="this.src='./assets/not-found.jpg'" src="{{movieImgPath + movies.backdrop_path }}" alt=""
+                class="movieImg" />
+        </div> -->
+    </div>
+
+</ng-template>
