@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Input } from '@angular/core';
+import { Component, OnDestroy, OnInit,OnChanges, Input, SimpleChanges } from '@angular/core';
 import { MoviesApiService } from '../movies-api.service';
 import SwiperCore, { Navigation, Pagination, Scrollbar, SwiperOptions, Autoplay } from 'swiper';
 import { elementAt, Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, Autoplay]);
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss']
 })
-export class CarouselComponent implements OnInit, OnDestroy {
+export class CarouselComponent implements OnInit,OnChanges ,OnDestroy {
   movieImgPath = 'https://image.tmdb.org/t/p/w1280/';
   movieImgPath2 = 'https://image.tmdb.org/t/p/w300/';
 
@@ -43,7 +43,7 @@ export class CarouselComponent implements OnInit, OnDestroy {
 
     }
   };
-  configDetails: SwiperOptions={
+  configDetails: SwiperOptions = {
     spaceBetween: 10,
     setWrapperSize: true,
     breakpoints: {
@@ -51,13 +51,15 @@ export class CarouselComponent implements OnInit, OnDestroy {
         slidesPerView: 2
       },
       1100: {
-        slidesPerView: 5
+        slidesPerView: 4
       },
       2000: {
         slidesPerView: 6
+      }, 2500: {
+        slidesPerView: 7
       }
     }
-    
+
   }
 
   movies: any[] = [];
@@ -71,7 +73,8 @@ export class CarouselComponent implements OnInit, OnDestroy {
 
   @Input() idMovie: any;
 
-  constructor(private _movies: MoviesApiService) { }
+  constructor(private _movies: MoviesApiService) { 
+  }
 
   ngOnInit(): void {
     if (this.idMovie) {
@@ -81,6 +84,12 @@ export class CarouselComponent implements OnInit, OnDestroy {
       this.getGenreList();
     }
 
+  }
+
+  ngOnChanges(changes: SimpleChanges): void{
+    if(!changes['idMovie'].firstChange){
+      this.getGenreMovie(changes['idMovie'].previousValue)
+    }
   }
 
   getBestMovies(genreId: any) {
@@ -120,19 +129,15 @@ export class CarouselComponent implements OnInit, OnDestroy {
   }
 
   getMoviesByGenre(genresMovie: any) {
-    //Esto me ayudo Mikel
-    
+
     const allRelated = genresMovie.map((genre: any) => {
       const relatedMovies: any = [];
-
       this._movies.getMoviesWithGenre(genre.id).subscribe(data => {
         data.results.map((element: any) => {
           if (element.id != this.idMovie) {
-            
             relatedMovies.push(element);
           }
         })
-
       });
       const related = {
         title: genre.name,
@@ -141,7 +146,6 @@ export class CarouselComponent implements OnInit, OnDestroy {
       return related;
     });
     this.relatedMovies = allRelated;
-    console.log(this.relatedMovies);
   }
 
   ngOnDestroy() {

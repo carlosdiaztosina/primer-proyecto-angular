@@ -20,7 +20,6 @@
     text-overflow: ellipsis;
     overflow: hidden;
 
-
     .image {
         height: 250px !important;
         width: calc(250px / 1.5);
@@ -32,6 +31,20 @@
         display: grid;
         width: 100%;
 
+        mat-icon {
+            position: absolute;
+            right: 15%;
+            margin: 5px;
+            color:red;
+            cursor: pointer;
+        }
+
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
         .titleCardContainer {
             display: flex;
             justify-content: space-between;
@@ -39,11 +52,6 @@
             h2 {
                 font-size: 30px;
                 margin: 0;
-            }
-
-            mat-icon {
-                color: red;
-                cursor: pointer;
             }
         }
 
@@ -55,14 +63,13 @@
             .rating-list {
                 display: inline-block;
                 list-style: none;
-                padding: 5px;
+                padding: 3px;
             }
 
             .rating-list li {
                 font-size: 20px;
                 float: right;
                 color: rgb(174, 173, 173);
-                padding: 10px 5px;
             }
 
             .rating-list li.selected {
@@ -71,12 +78,18 @@
 
         }
 
-
         p {
             margin: 0;
             font-size: 17px;
         }
     }
+
+
+
+}
+
+.flexContainer:hover {
+    background-color: rgb(194, 194, 194);
 }
 
 @media (max-width: 560px) {

@@ -12,14 +12,16 @@ import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { LoginComponent } from './login/login.component';
 import { FavoriteMoviesComponent } from './favorite-movies/favorite-movies.component';
 import { SwiperModule } from 'swiper/angular';
+import { NavegationComponent } from './navigation/navegation.component';
+import { CarouselComponent } from './carousel/carousel.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule }  from '@angular/material/button-toggle';
-import { NavegationComponent } from './navigation/navegation.component';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { CarouselComponent } from './carousel/carousel.component';
 import {MatSelectModule} from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import {MatSelectModule} from '@angular/material/select';
     LoginComponent,
     FavoriteMoviesComponent,
     NavegationComponent,
-    CarouselComponent
+    CarouselComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatButtonToggleModule,
     MatExpansionModule,
     SwiperModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

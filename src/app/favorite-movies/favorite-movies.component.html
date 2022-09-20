@@ -7,23 +7,25 @@
                     src="{{movieImgPath + movie.poster_path }}">
             </div>
             <div class="card">
-                <div class="titleCardContainer">
-                    <h2>{{movie.title}}</h2>
-                    <mat-icon (click)="deleteFavoriteMovie(movie.id)">delete</mat-icon>
-                </div>
-                <div class="dateRateContainer">
-                    <p>{{movie.release_date}}</p>
-                    <div>
-                        <ul class="list-inline rating-list" *ngFor="let star of stars; let i= index">
-                            <li [ngClass]="{'selected': (star <= movie.rating)}"> <span
-                                    class="material-icons">star</span>
-                            </li>
-                        </ul>
+                <mat-icon (click)="deleteFavoriteMovie(movie.id)">delete</mat-icon>
+                <a routerLink="/search/{{movie.id}}">
+                    <div class="titleCardContainer">
+                        <h2>{{movie.title}}</h2>
                     </div>
-                </div>
-                <div>
-                    <p>{{movie.overview}}</p>
-                </div>
+                    <div class="dateRateContainer">
+                        <p>{{movie.release_date}}</p>
+                        <div>
+                            <ul class="list-inline rating-list" *ngFor="let star of stars; let i= index">
+                                <li [ngClass]="{'selected': (star <= movie.rating)}"> <span
+                                        class="material-icons">star</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <p>{{movie.overview}}</p>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

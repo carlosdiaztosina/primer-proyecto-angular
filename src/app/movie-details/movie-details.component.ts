@@ -4,7 +4,6 @@ import { MoviesApiService } from '../movies-api.service';
 import { Subscription } from 'rxjs';
 import { UserService } from '../user-service.service';
 import { LoginService } from '../login/login.service';
-import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-movie-details',
@@ -25,7 +24,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
   error = '';
   stars: number[] = [1, 2, 3, 4, 5];
-  selectedValue= 0;
+  selectedValue = 0;
   isMouseover = true;
   rate = 0;
 
@@ -40,10 +39,14 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private loginService: LoginService
   ) {
+    
+  }
+
+  ngOnInit(): void {
     this.subscriptions.add(
-      this.activatedRoute.params.subscribe(async (params: Params) => {
+      this.activatedRoute.params.subscribe((params: Params) => {
         this.idMovie = params['id'];
-        await this.getMovieDeteils(this.idMovie);
+        this.getMovieDeteils(this.idMovie);
         this.loginService.sessionObservable.subscribe(data => {
           this.session_id = data;
         });
@@ -57,10 +60,6 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
         });
       })
     );
-  }
-
-  ngOnInit(): void {
-
   }
 
   getMovieDeteils(id: any) {
@@ -107,12 +106,14 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   }
 
   removeClass() {
-    if (this.isMouseover) {
+    if(this.user){
       this.setStrats();
     }
+    
   }
 
   setStrats() {
+    this.selectedValue = 0;
     this.rateMovies.forEach((element: any) => {
       if (element.id == this.idMovie) {
         if (element.rating <= 2) {
@@ -149,6 +150,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
           data.results.map((element: any) => {
             this.favoriteMovies.push(element);
           })
+          this.favoriteMovie = false;
           this.favoriteMovies.forEach((element: any) => {
             if (element.id == this.idMovie) {
               this.favoriteMovie = true;

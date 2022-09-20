@@ -1,10 +1,6 @@
 .swiper {
     --swiper-theme-color: #d8d5d5;
 }
-
-
-
-
 .topMovie {
     display: flex;
     align-items: center;
@@ -16,15 +12,11 @@
     }
 
     .movieImg {
-        height: 350px;
         width: 75%;
         border-radius: 7px;
         box-shadow: -20px 0px 15px #121212;
-        object-fit: cover;
+        object-fit: contain;
 
-        :hover {
-            opacity: 0.7;
-        }
     }
 
     h2 {
@@ -43,10 +35,6 @@
         left: -7% !important;
         width: 92px;
     }
-}
-
-.swiperDetails{
-    margin: 30px;
 }
 
 .movieImgDetails {

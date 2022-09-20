@@ -34,17 +34,12 @@
                     <div class="swiper-slider-content">
                         <a routerLink="/search/{{movies.id}}">
                             <img onerror="this.src='./assets/not-found.jpg'" src="{{movieImgPath2 + movies.backdrop_path }}"
-                                alt="" class="movieImgDetails" lazy/>
+                                alt="" class="movieImgDetails" loading="lazy"/>
                         </a>
                     </div>
                 </ng-template>
             </ng-container>
         </swiper>
-        <!-- <div *ngFor="let movies of moviesRealeted.relatedMovies">
-            <p style="color: white;">{{movies.title}}</p>
-            <img onerror="this.src='./assets/not-found.jpg'" src="{{movieImgPath + movies.backdrop_path }}" alt=""
-                class="movieImg" />
-        </div> -->
     </div>
 
 </ng-template>
