@@ -88,4 +88,9 @@ export class MoviesApiService {
     return this.http.get(`${this.path}&${this.apiKey}&with_genres=${genreId}`);
   }
 
+  getVideosMovie(movieId:any): Observable<any>{
+    this.path = this.rootURL + "/movie/"+ movieId +"/videos";
+    return this.http.get(`${this.path}?${this.apiKey}`);
+  }
+
 }

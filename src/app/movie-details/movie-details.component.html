@@ -1,33 +1,48 @@
-<app-navegation></app-navegation>
-<div *ngIf="this.error.length > 1; else elseBlock" class="errorMesage">
-  {{this.error}}
-</div>
-<ng-template #elseBlock>
-  <div class="detailsContainer">
-    <img class="movieImg col" onerror="this.src='./assets/not-found.jpg'" src="{{movieImgPath + movie.poster_path}}"
-      alt="" />
-    <div class="col movieDetails">
-      <p><strong>Tittle: </strong>
-        {{movie.title}}
-      </p>
+<app-spinner *ngIf="showSpinner;else elseBlockSpinner"></app-spinner>
+<ng-template #elseBlockSpinner>
+  <app-navegation></app-navegation>
+  <div *ngIf="this.error.length > 1; else elseBlock" class="errorMesage">
+    {{this.error}}
+  </div>
+  <ng-template #elseBlock>
+    <div class="detailsContainer">
+      <img class="movieImg col" onerror="this.src='./assets/not-found.jpg'" src="{{movieImgPath + movie.poster_path}}"
+        alt="" />
+      <div class="col movieDetails">
+        <p><strong>Tittle: </strong>
+          {{movie.title}}
+        </p>
 
-      <p>
-        <strong>Description: </strong>
-        {{movie.overview}}
-      </p>
+        <p>
+          <strong>Description: </strong>
+          {{movie.overview}}
+        </p>
+        <span class="material-icons play-icon" (click)="setShowVideo(this.showVideo)">play_circle</span>
+        <div class="cardVideo" *ngIf="this.showVideo">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Trailer</mat-card-title>
+            </mat-card-header>
+            <app-spinner *ngIf="this.spinnerVideo"></app-spinner>
+            <div>
+              <iframe [src]="safeSrc" (load)="onLoad()" class="{{!this.spinnerVideo ? 'selected' : 'logout'}}"></iframe>
+            </div>
+          </mat-card>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="starContainer">
-    <ul class="list-inline rating-list" *ngFor="let star of stars; let i= index">
-      <li (click)="countStar(star)" [ngClass]="{'selected': (star <= selectedValue)}" (mouseover)="addClass(star)"
-        (mouseout)="removeClass()"> <span class="material-icons">star</span>
-      </li>
-    </ul>
-    <span class="material-icons {{ this.favoriteMovie ? 'selectedFavorite':'iconFavorite'}}"
-      (click)="setFavoriteMovie(this.favoriteMovie)">favorite</span>
-  </div>
-  <div class="relatedMovies">
-    <h2 class="titleRelatedMovies">Related Movies By Genre</h2>
-    <app-carousel [idMovie]="this.idMovie" class="swiperDetails"></app-carousel>
-  </div>
+    <div class="starContainer">
+      <ul class="list-inline rating-list" *ngFor="let star of stars; let i= index">
+        <li (click)="countStar(star)" [ngClass]="{'selected': (star <= selectedValue)}" (mouseover)="addClass(star)"
+          (mouseout)="removeClass()"> <span class="material-icons">star</span>
+        </li>
+      </ul>
+      <span class="material-icons {{ this.favoriteMovie ? 'selectedFavorite':'iconFavorite'}}"
+        (click)="setFavoriteMovie(this.favoriteMovie)">favorite</span>
+    </div>
+    <div class="relatedMovies">
+      <h2 class="titleRelatedMovies">Related Movies By Genre</h2>
+      <app-carousel [idMovie]="this.idMovie" class="swiperDetails"></app-carousel>
+    </div>
+  </ng-template>
 </ng-template>

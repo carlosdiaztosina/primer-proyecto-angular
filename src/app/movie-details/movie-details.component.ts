@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, SimpleChanges, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MoviesApiService } from '../movies-api.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { UserService } from '../user-service.service';
 import { LoginService } from '../login/login.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-movie-details',
@@ -11,41 +12,49 @@ import { LoginService } from '../login/login.service';
   styleUrls: ['./movie-details.component.scss']
 })
 
-export class MovieDetailsComponent implements OnInit, OnDestroy {
+export class MovieDetailsComponent implements OnInit,AfterViewInit ,OnDestroy {
   movie: any = [];
   rateMovies: any = [];
   favoriteMovies: any = [];
- 
 
+  showSpinner=true;
+  showVideo=false;
+  spinnerVideo=true;
+ 
   idMovie: any;
   movieImgPath = 'https://image.tmdb.org/t/p/w300';
   session_id: any;
   user: any;
+  key: any;
 
   error = '';
   stars: number[] = [1, 2, 3, 4, 5];
   selectedValue = 0;
   isMouseover = true;
   rate = 0;
+  res = 0;
 
   favoriteMovie: any;
+  safeSrc: SafeResourceUrl | any;
 
-
+  subjectId = new Subject();
   subscriptions = new Subscription()
 
   constructor(
     private _movie: MoviesApiService,
     private activatedRoute: ActivatedRoute,
     private userService: UserService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private sanitizer: DomSanitizer
   ) {
     
   }
-
+ 
   ngOnInit(): void {
     this.subscriptions.add(
       this.activatedRoute.params.subscribe((params: Params) => {
         this.idMovie = params['id'];
+        this.showVideo=false;
         this.getMovieDeteils(this.idMovie);
         this.loginService.sessionObservable.subscribe(data => {
           this.session_id = data;
@@ -56,10 +65,20 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
             this.user = user;
             this.getRate();
             this.getFavoriteMovies();
+            this.getVideoMovie();
           }
         });
       })
     );
+  }
+
+  ngAfterViewInit(){
+    console.log("ngAfterInit");
+    
+    setTimeout(() => {
+      this.showSpinner = false;
+    },1000 )
+    
   }
 
   getMovieDeteils(id: any) {
@@ -134,10 +153,10 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
   setFavoriteMovie(favoriteMovie: any) {
     if (!favoriteMovie) {
-      this.favoriteMovie = true
+      this.favoriteMovie = true;
       this._movie.setFavoriteMovie(this.session_id, this.user.id, this.idMovie, this.favoriteMovie).subscribe();
     } else {
-      this.favoriteMovie = false
+      this.favoriteMovie = false;
       this._movie.setFavoriteMovie(this.session_id, this.user.id, this.idMovie, this.favoriteMovie).subscribe();
     }
 
@@ -161,7 +180,37 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  setShowVideo(showVideos:boolean){
+    if(showVideos){
+      this.showVideo=false;
+    }else{
+      this.showVideo=true;
+      this.spinnerVideo = true;
+      this.res = 0;
+    }
+  }
+
+  onLoad(){
+    this.res = this.res + 1;
+    
+    if(this.res == 2){
+      this.spinnerVideo = false;
+    }
+    console.log(this.res)
+    
+  }
+
+  getVideoMovie(){
+    this._movie.getVideosMovie(this.idMovie).subscribe(data =>{
+      data.results.map((element:any)=>{
+        if(element.type === "Trailer"){
+          this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + element.key);
+        }
+      });
+    });
+  }
+
   ngOnDestroy() {
-    this.subscriptions.unsubscribe()
+    this.subscriptions.unsubscribe();
   }
 }

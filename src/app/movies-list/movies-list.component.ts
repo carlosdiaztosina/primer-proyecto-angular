@@ -23,6 +23,8 @@ export class MoviesListComponent implements OnInit, OnDestroy {
 
   menuOn = false;
 
+  showSpinner=true;
+
   session_id = sessionStorage.getItem('sessionId');
   counter = new BehaviorSubject(0);
   private debounceTimer?: NodeJS.Timeout;
@@ -32,10 +34,19 @@ export class MoviesListComponent implements OnInit, OnDestroy {
   constructor(
     private _movies: MoviesApiService,
     private navigationService: NavigationService,
-    private userService: UserService) { }
+    private userService: UserService) { 
+      this.showSpinner = true;
+    }
+
+    ngAfterViewInit(){
+      setTimeout(() => {
+        this.showSpinner = false;
+      },1000)
+    }
 
 
   ngOnInit(): void {
+    
     this.userService.getUser();
     this.subscriptions.add(
       this.userService.userObservable.subscribe()

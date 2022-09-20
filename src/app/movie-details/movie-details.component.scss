@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    backgroud-color:rgba(22, 22, 22, 0.852);
 }
 
 .tittle {
@@ -85,6 +84,28 @@
     color: white;
     text-align: center;
 }
+.play-icon{
+    color: white;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.cardVideo{
+
+    iframe{
+        width: 100%;
+        height: 250px;
+    }
+
+    .logout {
+        display:none;
+    }
+    
+    .selected {
+        visibility: visible;
+    }
+}
+
 
 .errorMesage {
     color: white;
