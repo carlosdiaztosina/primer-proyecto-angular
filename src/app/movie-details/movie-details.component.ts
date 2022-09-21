@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit,OnChanges, SimpleChanges} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MoviesApiService } from '../movies-api.service';
 import { Subject, Subscription } from 'rxjs';
@@ -12,15 +12,16 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrls: ['./movie-details.component.scss']
 })
 
-export class MovieDetailsComponent implements OnInit,AfterViewInit ,OnDestroy {
+export class MovieDetailsComponent implements OnInit,OnChanges, AfterViewInit, OnDestroy {
   movie: any = [];
   rateMovies: any = [];
   favoriteMovies: any = [];
 
-  showSpinner=true;
-  showVideo=false;
-  spinnerVideo=true;
- 
+  showSpinner = true;
+  showVideo = false;
+  spinnerVideo = true;
+  showPlay :any;
+
   idMovie: any;
   movieImgPath = 'https://image.tmdb.org/t/p/w300';
   session_id: any;
@@ -47,38 +48,45 @@ export class MovieDetailsComponent implements OnInit,AfterViewInit ,OnDestroy {
     private loginService: LoginService,
     private sanitizer: DomSanitizer
   ) {
-    
+
   }
- 
+
   ngOnInit(): void {
     this.subscriptions.add(
       this.activatedRoute.params.subscribe((params: Params) => {
         this.idMovie = params['id'];
-        this.showVideo=false;
+        this.subjectId.next(params['id']);
         this.getMovieDeteils(this.idMovie);
+
         this.loginService.sessionObservable.subscribe(data => {
           this.session_id = data;
         });
+        
         this.userService.getUser();
-        this.userService.userObservable.subscribe(user => {
+        this.userService.userObservable?.subscribe(user => {
           if (user) {
             this.user = user;
-            this.getRate();
-            this.getFavoriteMovies();
-            this.getVideoMovie();
           }
+          this.getRate();
+          this.getFavoriteMovies();
+          this.getVideoMovie();
         });
+        this.showSpinner = true;
+        this.showVideo = false;
+        this.ngAfterViewInit();
       })
     );
   }
 
-  ngAfterViewInit(){
-    console.log("ngAfterInit");
-    
+  ngAfterViewInit() {
     setTimeout(() => {
       this.showSpinner = false;
-    },1000 )
-    
+    }, 1000)
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.subjectId.subscribe(data =>{
+      console.log(changes)
+    })
   }
 
   getMovieDeteils(id: any) {
@@ -125,10 +133,10 @@ export class MovieDetailsComponent implements OnInit,AfterViewInit ,OnDestroy {
   }
 
   removeClass() {
-    if(this.user){
+    if (this.user) {
       this.setStrats();
     }
-    
+
   }
 
   setStrats() {
@@ -145,7 +153,7 @@ export class MovieDetailsComponent implements OnInit,AfterViewInit ,OnDestroy {
   }
 
   setRateMovie(rate: any) {
-    this._movie.setRateMovie(this.movie.id, rate, this.session_id).subscribe(()=>{
+    this._movie.setRateMovie(this.movie.id, rate, this.session_id).subscribe(() => {
       this.getRate();
     });
   }
@@ -163,7 +171,7 @@ export class MovieDetailsComponent implements OnInit,AfterViewInit ,OnDestroy {
   }
 
   getFavoriteMovies() {
-    if (this.session_id) {
+    if (this.session_id && this.user) {
       this.subscriptions.add(
         this._movie.getFavoriteMovies(this.session_id, this.user.id)?.subscribe((data: any) => {
           data.results.map((element: any) => {
@@ -180,33 +188,38 @@ export class MovieDetailsComponent implements OnInit,AfterViewInit ,OnDestroy {
     }
   }
 
-  setShowVideo(showVideos:boolean){
-    if(showVideos){
-      this.showVideo=false;
-    }else{
-      this.showVideo=true;
+  setShowVideo(showVideos: boolean) {
+    if (showVideos) {
+      this.showVideo = false;
+      this.showPlay = true;
+    } else {
+      this.showPlay = false;
+      this.showVideo = true;
       this.spinnerVideo = true;
       this.res = 0;
     }
   }
 
-  onLoad(){
+  onLoad() {
     this.res = this.res + 1;
-    
-    if(this.res == 2){
+    if (this.res == 2) {
       this.spinnerVideo = false;
     }
-    console.log(this.res)
-    
   }
 
-  getVideoMovie(){
-    this._movie.getVideosMovie(this.idMovie).subscribe(data =>{
-      data.results.map((element:any)=>{
-        if(element.type === "Trailer"){
-          this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + element.key);
-        }
-      });
+  getVideoMovie() {
+    this._movie.getVideosMovie(this.idMovie).subscribe(data => {
+      if (data.results.length > 1) {
+        this.showPlay = true;
+        data.results.map((element: any) => {
+          if (element.type === "Trailer") {
+            this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + element.key + "?autoplay=1&mute=1&controls=1");
+          }
+        });
+      } else {
+        this.showPlay = false;
+      }
+
     });
   }
 

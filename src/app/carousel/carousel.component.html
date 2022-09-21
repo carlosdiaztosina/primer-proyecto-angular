@@ -18,7 +18,7 @@
                     <div class="topMovie">
                         <h2 class="title{{i}}">{{i + 1}}</h2>
                         <img onerror="this.src='./assets/not-found.jpg'" src="{{movieImgPath + movie.backdrop_path }}"
-                            alt="" class="movieImg" />
+                            alt="" class="movieImg" loading="lazy" />
                     </div>
                 </div>
             </ng-template>

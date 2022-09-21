@@ -10,8 +10,8 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, Autoplay]);
   styleUrls: ['./carousel.component.scss']
 })
 export class CarouselComponent implements OnInit,OnChanges ,OnDestroy {
-  movieImgPath = 'https://image.tmdb.org/t/p/w1280/';
-  movieImgPath2 = 'https://image.tmdb.org/t/p/w300/';
+  movieImgPath = 'https://image.tmdb.org/t/p/w1280';
+  movieImgPath2 = 'https://image.tmdb.org/t/p/w300';
 
   genresMovie: any;
 
