@@ -23,7 +23,7 @@ export class MoviesListComponent implements OnInit, OnDestroy {
 
   menuOn = false;
 
-  showSpinner=true;
+  showSpinner = true;
 
   session_id = sessionStorage.getItem('sessionId');
   counter = new BehaviorSubject(0);
@@ -34,19 +34,11 @@ export class MoviesListComponent implements OnInit, OnDestroy {
   constructor(
     private _movies: MoviesApiService,
     private navigationService: NavigationService,
-    private userService: UserService) { 
-      this.showSpinner = true;
-    }
-
-    ngAfterViewInit(){
-      setTimeout(() => {
-        this.showSpinner = false;
-      },1000)
-    }
-
+    private userService: UserService) {
+    this.showSpinner = true;
+  }
 
   ngOnInit(): void {
-    
     this.userService.getUser();
     this.subscriptions.add(
       this.userService.userObservable.subscribe()
@@ -59,16 +51,22 @@ export class MoviesListComponent implements OnInit, OnDestroy {
           this.text = text;
           this.getMoviesSearch(this.text);
         } else {
+          
           this.movieTitle();
         }
       })
     );
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.showSpinner = false;
+    }, 1000)
+  }
   getMovies() {
     this.subscriptions.add(
       this._movies.getMovies().subscribe((data) => {
-        this.imgMovie = data.results.poster_path ? this.movieImgPath + data.results.poster_path : './assets/not-found.jpg';
+        // this.imgMovie = data.results.poster_path ? this.movieImgPath + data.results.poster_path : './assets/not-found.jpg';
         data.results.map((element: any) => {
           if (element.poster_path) {
             this.movies.push(element);

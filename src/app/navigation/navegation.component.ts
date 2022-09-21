@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { LoginService } from '../login/login.service';
 import { MoviesApiService } from '../movies-api.service';
 import { UserService } from '../user-service.service';
@@ -13,16 +14,21 @@ import { NavigationService } from './navigation.service';
 export class NavegationComponent implements OnInit {
   
   menuOn = false;
-  fieldOn = false;
+  fieldOn=true;
   textField:any;
   session_id:any;
+  
   typeScroll="arrow_back";
   scrollOnArrow=false;
   scrollOnSearch=true;
 
   private debounceTimer?: NodeJS.Timeout
 
+  subscriptions = new Subscription();
+
   text : any;
+
+  show=true;
 
   constructor(
     private _movies: MoviesApiService, 
@@ -36,10 +42,12 @@ export class NavegationComponent implements OnInit {
     if(this.route.url.length > 1){
       this.scrollOnArrow=true;
       this.scrollOnSearch=false;
+      this.fieldOn = false;
     }
     window.addEventListener("scroll",(event)=>{
       this.getScroll();
     })
+
   }
 
   logout() {
@@ -73,6 +81,7 @@ export class NavegationComponent implements OnInit {
   arrowClick(arrow:any){
     if(this.route.url.length > 1 &&  arrow == "arrow_back" ){  
       this.route.navigate(['']);
+      this.naviServ.setText(null);
     }else{
       window.scrollTo(0,0);
     }
@@ -82,7 +91,7 @@ export class NavegationComponent implements OnInit {
     if(this.route.url.length <= 1 && window.scrollY == 0){
       this.scrollOnArrow=false;
       this.scrollOnSearch=true;
-      this.fieldOn = false;
+      this.fieldOn = true;
     }else if(this.route.url.length > 1  && window.scrollY == 0){
       this.typeScroll = "arrow_back";
       this.scrollOnArrow=true;
@@ -96,14 +105,6 @@ export class NavegationComponent implements OnInit {
       this.typeScroll = "arrow_upward";
       this.scrollOnArrow=true;
       this.scrollOnSearch=true;
-    }
-  }
-
-  fieldTextOn(){
-    if(!this.fieldOn){
-      this.fieldOn=true
-    }else{
-      this.fieldOn = false;
     }
   }
 

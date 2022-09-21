@@ -18,7 +18,7 @@
                     <div class="topMovie">
                         <h2 class="title{{i}}">{{i + 1}}</h2>
                         <img onerror="this.src='./assets/not-found.jpg'" src="{{movieImgPath + movie.backdrop_path }}"
-                            alt="" class="movieImg" loading="lazy" />
+                            alt="" class="movieImg"/>
                     </div>
                 </div>
             </ng-template>
@@ -28,7 +28,7 @@
 <ng-template #elseBlockCarousel>
     <div  class="swiperDetails" *ngFor="let moviesRealeted of this.relatedMovies">
         <h2 style="color: white;">{{moviesRealeted.title}}</h2>
-        <swiper [config]="configDetails" class="swiper">
+        <swiper [config]="configDetails" class="swiper-details">
             <ng-container   *ngFor="let movies of moviesRealeted.relatedMovies">
                 <ng-template swiperSlide>
                     <div class="swiper-slider-content">

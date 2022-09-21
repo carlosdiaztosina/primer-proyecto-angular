@@ -39,20 +39,23 @@
 .starContainer {
     display: flex;
     justify-content: center;
-    align-items: center;
+
+    ul{
+        padding: 0;
+        padding-right: 5px;
+    }
 
     .rating-list {
         display: inline-block;
         list-style: none;
-        padding: 5px;
         cursor: pointer;
+        margin: 0;
     }
 
     .rating-list li {
         font-size: 20px;
         float: right;
         color: #ddd;
-        padding: 10px 5px;
     }
 
     .rating-list li.selected {
@@ -61,7 +64,7 @@
 
     .iconFavorite {
         color: white;
-        margin-left: 90px;
+        margin-left: 30px;
         position: relative;
         bottom: 5px;
         cursor: pointer;
@@ -70,10 +73,13 @@
 
     .selectedFavorite {
         color: red;
-        margin-left: 90px;
+        margin-left: 30px;
         position: relative;
         bottom: 5px;
         cursor: pointer;
+    }
+    span{
+        font-size: 30px;
     }
 }
 

@@ -1,6 +1,8 @@
 .swiper {
     --swiper-theme-color: #d8d5d5;
 }
+
+
 .topMovie {
     display: flex;
     align-items: center;
@@ -20,20 +22,20 @@
     }
 
     h2 {
-        font-size: 15rem;
+        font-size: 10rem;
         z-index: -1;
         margin: 0;
         position: relative;
         left: 1%;
-        letter-spacing: -45px;
+        letter-spacing: -30px;
         color: #121212;
         text-shadow: 2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff,
             1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
     }
 
     .title9 {
-        left: -7% !important;
-        width: 92px;
+        left: 4% !important;
+        // width: 92px;
     }
 }
 

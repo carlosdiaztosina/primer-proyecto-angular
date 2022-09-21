@@ -42,13 +42,17 @@
       </div>
     </div>
     <div class="starContainer">
-      <ul class="list-inline rating-list" *ngFor="let star of stars; let i= index">
-        <li (click)="countStar(star)" [ngClass]="{'selected': (star <= selectedValue)}" (mouseover)="addClass(star)"
-          (mouseout)="removeClass()"> <span class="material-icons">star</span>
-        </li>
-      </ul>
-      <span class="material-icons {{ this.favoriteMovie ? 'selectedFavorite':'iconFavorite'}}"
-        (click)="setFavoriteMovie(this.favoriteMovie)">favorite</span>
+      <div>
+        <ul class="list-inline rating-list" *ngFor="let star of stars; let i= index">
+          <li (click)="countStar(star)" [ngClass]="{'selected': (star <= selectedValue)}" (mouseover)="addClass(star)"
+            (mouseout)="removeClass()"> <span class="material-icons">star</span>
+          </li>
+        </ul>
+      </div>
+      <div style="padding:5px;">
+        <span class="material-icons {{ this.favoriteMovie ? 'selectedFavorite':'iconFavorite'}}"
+          (click)="setFavoriteMovie(this.favoriteMovie)">favorite</span>
+      </div>
     </div>
     <div class="relatedMovies">
       <h2 class="titleRelatedMovies">Related Movies By Genre</h2>

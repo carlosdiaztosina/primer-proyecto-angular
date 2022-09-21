@@ -21,7 +21,7 @@
     overflow: hidden;
 
     .image {
-        height: 250px !important;
+        height: 250px;
         width: calc(250px / 1.5);
         border-radius: 5px;
     }
@@ -64,10 +64,10 @@
                 display: inline-block;
                 list-style: none;
                 padding: 3px;
+                margin: 0;
             }
 
             .rating-list li {
-                font-size: 20px;
                 float: right;
                 color: rgb(174, 173, 173);
             }
@@ -83,18 +83,21 @@
             font-size: 17px;
         }
     }
-
-
-
 }
 
 .flexContainer:hover {
     background-color: rgb(194, 194, 194);
 }
 
-@media (max-width: 560px) {
+@media (max-width: 550px) {
+    .image {
+        object-fit: cover;
+        width: calc(250px / 2) !important;
+    }
+    .star-icon{
+        font-size: 8px;
+    }
     .card {
-
         h2 {
             font-size: 20px !important;
         }

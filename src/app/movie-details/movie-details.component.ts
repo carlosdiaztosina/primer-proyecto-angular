@@ -85,7 +85,6 @@ export class MovieDetailsComponent implements OnInit,OnChanges, AfterViewInit, O
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.subjectId.subscribe(data =>{
-      console.log(changes)
     })
   }
 

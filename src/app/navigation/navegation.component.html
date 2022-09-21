@@ -2,24 +2,23 @@
     <div class="arrow">
         <mat-icon class="{{this.scrollOnArrow ? 'selected':'logout'}}" (click)="arrowClick(this.typeScroll)">
             {{this.typeScroll}}</mat-icon>
+        <input class="{{this.fieldOn ? 'selected' : 'logout'}}" type="text" name="textField" id="textField"
+            (input)="Search($event)" (focusin)="show = false" (focusout)="show = true">
+        <mat-icon class="serach-icon" *ngIf="show" >search</mat-icon>   
     </div>
     <div class="titleHome">
         <img class="logo" (click)="arrowClick(this.typeScroll)" src="./assets/movieLogo.png" alt="" />
     </div>
     <div class="toggleContainer" *ngIf="!this.session_id; else logout">
         <mat-icon class="icon" (click)="login('login')">person</mat-icon>
-        <mat-icon class="{{this.scrollOnSearch ? 'selected':'logout'}}" (click)="fieldTextOn()">search</mat-icon>
-        <input class="{{this.fieldOn ? 'selected' : 'logout'}}" type="text" name="textField" id="textField"
-                (input)="Search($event)">
+        <!-- <mat-icon class="{{this.scrollOnSearch ? 'selected':'logout'}}" >search</mat-icon> -->
     </div>
     <ng-template #logout>
         <div class="toggleContainer">
-            <mat-icon class="" (click)="downMenu()">menu</mat-icon>
+            <mat-icon class="icon" (click)="downMenu()">menu</mat-icon>
             <mat-icon class="{{this.menuOn ? 'selected' : 'logout'}}" (click)="login('favorite')">star</mat-icon>
             <mat-icon class="{{this.menuOn ? 'selected' : 'logout'}}" (click)="login('logout')">logout</mat-icon>
-            <mat-icon class="{{this.scrollOnSearch ? 'selected':'logout'}}" (click)="fieldTextOn()">search</mat-icon>
-            <input class="{{this.fieldOn ? 'selected' : 'logout'}}" type="text" name="textField" id="textField"
-                (input)="Search($event)">
+            <!-- <mat-icon class="{{this.scrollOnSearch ? 'selected':'logout'}}" >search</mat-icon> -->
         </div>
     </ng-template>
 </div>

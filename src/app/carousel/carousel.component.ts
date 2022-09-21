@@ -17,10 +17,8 @@ export class CarouselComponent implements OnInit,OnChanges ,OnDestroy {
 
   objeto: any;
 
-
-
   config: SwiperOptions = {
-    loopedSlides: 3,
+    loopedSlides: 4,
     loop: true,
     setWrapperSize: true,
     grabCursor: true,
@@ -34,28 +32,38 @@ export class CarouselComponent implements OnInit,OnChanges ,OnDestroy {
       320: {
         slidesPerView: 1
       },
-      1100: {
+      750: {
         slidesPerView: 2
       },
-      2000: {
+      1600: {
         slidesPerView: 3
+      },
+      2200:{
+        slidesPerView: 4
       }
 
     }
   };
   configDetails: SwiperOptions = {
-    spaceBetween: 10,
     setWrapperSize: true,
+    pagination: false,
     breakpoints: {
       320: {
+        slidesPerView: 1
+      },
+      585:{
         slidesPerView: 2
       },
-      1100: {
+      850:{
+        slidesPerView: 3
+      },
+      1140: {
         slidesPerView: 4
       },
       2000: {
         slidesPerView: 6
-      }, 2500: {
+      }, 
+      2500: {
         slidesPerView: 7
       }
     }
