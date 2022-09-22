@@ -1,25 +1,30 @@
-<div>
-  <div class="search">
-    <app-navegation class="navBar"></app-navegation>
-  </div>
-  <div class="container">
-    <div class="fieldContainer">
-      <input class="fieldText" placeholder="Search" [ngModel]="text" (input)="Search($event)">
+<app-spinner *ngIf="this.showSpinner;else elseBlockSpinner"></app-spinner>
+<ng-template #elseBlockSpinner>
+  <div>
+    <div class="search">
+      <app-navegation class="navBar"></app-navegation>
     </div>
-    <div *ngIf="this.error.length > 1; else elseBlock" class="errorTitle">
-      {{this.error}}
+    <div>
+      <app-carousel></app-carousel>
     </div>
-    <ng-template #elseBlock>
-      <ul class="movisList">
-        <li class="movieCard" *ngFor="let movie of movies; let i = index">
-          <a routerLink="search/{{ movie.id }}">
-            <h3 class="movieTitle">{{ movie.title }}</h3>
-            <img class="movieImg" onerror="this.src='./assets/not-found.jpg'"
-              src="{{movieImgPath + movie.poster_path }}" alt="" loading="lazy" />
-          </a>
-          <hr>
-        </li>
-      </ul>
-      <div infiniteScroll (scrolled)="onScroll()"></div>
-    </ng-template>
+    <div class="container">
+      <div *ngIf="this.error.length >= 1; else elseBlock" class="errorTitle">
+        {{this.error}}
+      </div>
+      <ng-template #elseBlock>
+        <app-providers-regions></app-providers-regions>
+        <ul class="movisList">
+          <li class="movieCard" *ngFor="let movie of movies; let i = index">
+            <a routerLink="search/{{ movie.id }}">
+              <h3 class="movieTitle">{{ movie.title }}</h3>
+              <img class="movieImg" onerror="this.src='./assets/not-found.jpg'"
+                src="{{movieImgPath + movie.poster_path }}" alt="" loading="lazy" />
+            </a>
+            <hr>
+          </li>
+        </ul>
+        <div infiniteScroll (scrolled)="onScroll()"></div>
+      </ng-template>
+    </div>
   </div>
+</ng-template>

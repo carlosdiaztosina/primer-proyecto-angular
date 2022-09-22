@@ -20,9 +20,8 @@
     text-overflow: ellipsis;
     overflow: hidden;
 
-
     .image {
-        height: 250px !important;
+        height: 250px;
         width: calc(250px / 1.5);
         border-radius: 5px;
     }
@@ -32,6 +31,19 @@
         display: grid;
         width: 100%;
 
+        mat-icon {
+            position: absolute;
+            right: 15%;
+            color:red;
+            cursor: pointer;
+        }
+
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
         .titleCardContainer {
             display: flex;
             justify-content: space-between;
@@ -39,11 +51,7 @@
             h2 {
                 font-size: 30px;
                 margin: 0;
-            }
-
-            mat-icon {
-                color: red;
-                cursor: pointer;
+                margin-right: 30px;
             }
         }
 
@@ -55,14 +63,13 @@
             .rating-list {
                 display: inline-block;
                 list-style: none;
-                padding: 5px;
+                padding: 3px;
+                margin: 0;
             }
 
             .rating-list li {
-                font-size: 20px;
                 float: right;
                 color: rgb(174, 173, 173);
-                padding: 10px 5px;
             }
 
             .rating-list li.selected {
@@ -71,7 +78,6 @@
 
         }
 
-
         p {
             margin: 0;
             font-size: 17px;
@@ -79,9 +85,22 @@
     }
 }
 
-@media (max-width: 560px) {
-    .card {
+.flexContainer:hover {
+    background-color: rgb(194, 194, 194);
+}
 
+@media (max-width: 550px) {
+    .image {
+        object-fit: cover;
+        width: calc(200px / 2) !important;
+    }
+    .star-icon{
+        font-size: 8px;
+    }
+    .flexContainer{
+        height: 150px;
+    }
+    .card {
         h2 {
             font-size: 20px !important;
         }
