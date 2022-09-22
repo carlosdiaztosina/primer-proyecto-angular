@@ -92,10 +92,13 @@
 @media (max-width: 550px) {
     .image {
         object-fit: cover;
-        width: calc(250px / 2) !important;
+        width: calc(200px / 2) !important;
     }
     .star-icon{
         font-size: 8px;
+    }
+    .flexContainer{
+        height: 150px;
     }
     .card {
         h2 {

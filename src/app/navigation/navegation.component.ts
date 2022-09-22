@@ -53,6 +53,7 @@ export class NavegationComponent implements OnInit {
   logout() {
     this.session_id = null;
     this.loginService.setSessionId(null);
+    this.userService.removeUser();
     sessionStorage.removeItem('sessionId');
   }
 
@@ -80,8 +81,8 @@ export class NavegationComponent implements OnInit {
 
   arrowClick(arrow:any){
     if(this.route.url.length > 1 &&  arrow == "arrow_back" ){  
-      this.route.navigate(['']);
       this.naviServ.setText(null);
+      this.route.navigate(['']);
     }else{
       window.scrollTo(0,0);
     }
@@ -109,12 +110,15 @@ export class NavegationComponent implements OnInit {
   }
 
   Search(event:any){
-    if (!!event) {
+    
+    if (!!event && event.target.value !=="") {
       if (this.debounceTimer) clearTimeout(this.debounceTimer);
       this.debounceTimer = setTimeout(() => {
         this.text = event.target.value;
         this.naviServ.setText(this.text);
       }, 500);
+    }else{
+      this.naviServ.setText(null);
     }
   }
 }

@@ -8,13 +8,11 @@
       <app-carousel></app-carousel>
     </div>
     <div class="container">
-      <div class="fieldContainer">
-        <input class="fieldText" placeholder="Search" [ngModel]="text" (input)="Search($event)">
-      </div>
-      <div *ngIf="this.error.length > 1; else elseBlock" class="errorTitle">
+      <div *ngIf="this.error.length >= 1; else elseBlock" class="errorTitle">
         {{this.error}}
       </div>
       <ng-template #elseBlock>
+        <app-providers-regions></app-providers-regions>
         <ul class="movisList">
           <li class="movieCard" *ngFor="let movie of movies; let i = index">
             <a routerLink="search/{{ movie.id }}">

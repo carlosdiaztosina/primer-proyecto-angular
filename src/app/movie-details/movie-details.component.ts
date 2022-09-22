@@ -62,8 +62,8 @@ export class MovieDetailsComponent implements OnInit,OnChanges, AfterViewInit, O
           this.session_id = data;
         });
         
-        this.userService.getUser();
         this.userService.userObservable?.subscribe(user => {
+          console.log('moviedetails', user)
           if (user) {
             this.user = user;
           }

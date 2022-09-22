@@ -15,6 +15,7 @@ import { SwiperModule } from 'swiper/angular';
 import { NavegationComponent } from './navigation/navegation.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { ProvidersRegionsComponent } from './providers-regions/providers-regions.component';
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,6 +24,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCardModule} from '@angular/material/card';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 @NgModule({
   declarations: [
@@ -33,7 +37,8 @@ import {MatCardModule} from '@angular/material/card';
     FavoriteMoviesComponent,
     NavegationComponent,
     CarouselComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ProvidersRegionsComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +54,10 @@ import {MatCardModule} from '@angular/material/card';
     SwiperModule,
     MatSelectModule,
     MatProgressSpinnerModule,
-    MatCardModule
+    MatCardModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

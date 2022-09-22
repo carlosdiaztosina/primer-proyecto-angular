@@ -41,5 +41,9 @@ export class UserService {
     }
   }
 
+  removeUser() {
+    this.setUser(null)
+  }
+
 
 }

@@ -1,0 +1,44 @@
+<div class="filter-container" (click)="setShowFilter(this.showFilter)">
+    <h2>
+        Where To Watch
+    </h2>
+    <span class="material-icons" *ngIf="!this.showFilter">
+        arrow_drop_down
+    </span>
+    <span *ngIf="this.showFilter" class="material-icons">
+        arrow_drop_up
+    </span>
+</div>
+<div *ngIf="this.showFilter" class="content-filter">
+    <div>
+        <form class="example-form">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Countries</mat-label>
+                <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
+                    [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option (click)="setRegionProvider(null)">--</mat-option>
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.english_name"
+                        (click)="setRegionProvider(option.iso_3166_1)">
+                        <img src="https://flagcdn.com/16x12/{{setLowerCase(option.iso_3166_1)}}.png">
+                        {{option.english_name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </form>
+    </div>
+
+    <div *ngIf="this.providers" class="providers-list" >
+        <div *ngFor="let provider of this.providers.results" >
+            <img
+                src="{{this.pathImg + provider.logo_path}}"
+                width="50"
+                height="50"
+                alt="{{provider.provider_name}}"
+                class="provider-img"
+                loading="lazy"
+                (click)="setMoviesProvider(provider.provider_id,this.language)"
+            >
+        </div>
+    </div>
+</div>

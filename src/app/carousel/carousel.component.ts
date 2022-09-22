@@ -104,7 +104,7 @@ export class CarouselComponent implements OnInit,OnChanges ,OnDestroy {
     this.movies = [];
     if (genreId == null) {
       this.subscriptions.add(
-        this._movies.getMovies().subscribe((data) => {
+        this._movies.getMoviesAll(null,null,null).subscribe((data) => {
           for (let index = 0; index < 10; index++) {
             this.movies.push(data.results[index]);
           }

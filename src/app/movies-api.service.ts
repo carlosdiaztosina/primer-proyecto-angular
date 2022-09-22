@@ -13,14 +13,13 @@ export class MoviesApiService {
 
   constructor(private http: HttpClient, private route: Router) { }
 
-  getMovies(): Observable<any> {
-    this.path = this.rootURL + "/discover/movie";
-    return this.http.get(`${this.path}?${this.apiKey}`);
-  }
 
-  getMoviesPag(page: any): Observable<any> {
-    this.path = this.rootURL + "/discover/movie";
-    return this.http.get(`${this.path}?${this.apiKey}` + "&page=" + page);
+  getMoviesAll(page:any,provider:any,language:any): Observable<any>{
+    this.path = this.rootURL + "/discover/movie?page="+ page
+    +"&with_watch_providers="+provider
+    +"&watch_region="+language
+    +"&sort_by=popularity.desc";
+    return this.http.get(`${this.path}&${this.apiKey}`);
   }
 
   getMovieDeteils(id: any): Observable<any> {
@@ -92,5 +91,21 @@ export class MoviesApiService {
     this.path = this.rootURL + "/movie/"+ movieId +"/videos";
     return this.http.get(`${this.path}?${this.apiKey}`);
   }
+
+  getRegions(): Observable<any>{
+    this.path = this.rootURL + "/watch/providers/regions";
+    return this.http.get(`${this.path}?${this.apiKey}`);
+  }
+
+  getProvidersRegion(region:any): Observable<any>{
+    this.path = this.rootURL + "/watch/providers/movie?watch_region="+ region;
+    return this.http.get(`${this.path}&${this.apiKey}`);
+  }
+
+
+  // getMoviesProvider(provider:any,language:any): Observable<any>{
+  //   this.path = this.rootURL + "/discover/movie?with_watch_providers="+provider+"&watch_region="+language+"&sort_by=popularity.desc";
+  //   return this.http.get(`${this.path}&${this.apiKey}`);
+  // }
 
 }
