@@ -8,7 +8,7 @@ import { MoviesApiService } from './movies-api.service';
   providedIn: 'root'
 })
 export class UserService {
-  private userSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private userSubject: BehaviorSubject<any> = new BehaviorSubject<any>("");
   public userObservable = this.userSubject.asObservable();
   
   session_id: any;
@@ -18,7 +18,12 @@ export class UserService {
 
   constructor(
     private http: HttpClient, 
-    private loginService: LoginService) {}
+    private loginService: LoginService) {
+      this.loginService.sessionObservable.subscribe(data => {
+        this.session_id = data;
+        this.getUser();
+      });
+    }
 
   setUser(data: any) {
     this.userSubject.next(data);
@@ -30,12 +35,16 @@ export class UserService {
     });
     return this.session_id;
   }
+  getUserLoged(){
+    return sessionStorage.getItem('user');
+  }
+
 
   getUser() {
-    let session_id = this.getSessionId();
-    if (session_id) {
-      const path = this.rootURL + "/account?" + this.apiKey + "&session_id=" + session_id;
+    if (this.session_id) {
+      const path = this.rootURL + "/account?" + this.apiKey + "&session_id=" + this.session_id;
       this.http.get(path).subscribe(user => {
+        sessionStorage.setItem('user',JSON.stringify(user))
         this.setUser(user);
       });
     }

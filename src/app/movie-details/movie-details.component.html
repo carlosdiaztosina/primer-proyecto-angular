@@ -1,6 +1,6 @@
 <app-spinner *ngIf="showSpinner;else elseBlockSpinner"></app-spinner>
 <ng-template #elseBlockSpinner>
-  <app-navegation></app-navegation>
+  <app-navegation class="navBar"></app-navegation>
   <div *ngIf="this.error.length > 1; else elseBlock" class="errorMesage">
     {{this.error}}
   </div>

@@ -3,6 +3,11 @@
     justify-content: center;
     flex-wrap: wrap;
 }
+.navBar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
 
 .tittle {
     text-align: center;

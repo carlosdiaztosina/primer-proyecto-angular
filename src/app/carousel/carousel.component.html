@@ -10,20 +10,20 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-    </div>
-    <swiper [config]="config" class="swiper">
-        <ng-container *ngFor="let movie of this.movies; index as i">
-            <ng-template swiperSlide>
-                <div class="swiper-slider-content">
-                    <div class="topMovie">
-                        <h2 class="title{{i}}">{{i + 1}}</h2>
-                        <img onerror="this.src='./assets/not-found.jpg'" src="{{movieImgPath + movie.backdrop_path }}"
-                            alt="" class="movieImg"/>
+        <swiper [config]="config" class="swiper">
+            <ng-container *ngFor="let movie of this.movies; index as i">
+                <ng-template swiperSlide>
+                    <div class="swiper-slider-content">
+                        <div class="topMovie">
+                            <h2 class="title{{i}}">{{i + 1}}</h2>
+                            <img onerror="this.src='./assets/not-found.jpg'" src="{{movieImgPath + movie.backdrop_path }}"
+                                alt="" class="movieImg"/>
+                        </div>
                     </div>
-                </div>
-            </ng-template>
-        </ng-container>
-    </swiper>
+                </ng-template>
+            </ng-container>
+        </swiper>
+    </div>
 </div>
 <ng-template #elseBlockCarousel>
     <div  class="swiperDetails" *ngFor="let moviesRealeted of this.relatedMovies">

@@ -57,9 +57,9 @@ export class MoviesApiService {
     return this.http.post(this.path, { value: rate });
   }
 
-  getRate(idUser: any, session_id: any): Observable<any> | void {
+  getRate(idUser: any, session_id: any, page:any): Observable<any> | void {
     if (session_id) {
-      this.path = this.rootURL + "/account/" + idUser + "/rated/movies?" + this.apiKey + "&language=en-US&sort_by=created_at.asc&page=1&session_id=" + session_id;
+      this.path = this.rootURL + "/account/" + idUser + "/rated/movies?" + this.apiKey + "&language=en-US&sort_by=created_at.asc&page="+page+"&session_id=" + session_id;
       return this.http.get(this.path);
     }
   }
@@ -102,10 +102,5 @@ export class MoviesApiService {
     return this.http.get(`${this.path}&${this.apiKey}`);
   }
 
-
-  // getMoviesProvider(provider:any,language:any): Observable<any>{
-  //   this.path = this.rootURL + "/discover/movie?with_watch_providers="+provider+"&watch_region="+language+"&sort_by=popularity.desc";
-  //   return this.http.get(`${this.path}&${this.apiKey}`);
-  // }
 
 }

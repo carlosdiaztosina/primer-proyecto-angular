@@ -1,12 +1,12 @@
-.genre-container{
-    background-color: #212121;
-}
-.swiper {
-    --swiper-theme-color: #d8d5d5;
-    background-color: #212121;
+.genre-container {
+    background-color: #151515;
     padding-bottom: 10px;
-}
 
+    .swiper {
+        --swiper-theme-color: #d8d5d5;
+
+    }
+}
 
 .topMovie {
     display: flex;
@@ -22,8 +22,9 @@
         width: 75%;
         border-radius: 7px;
         box-shadow: -20px 0px 15px #121212;
-        object-fit: contain;
-
+        object-fit: cover;
+        max-width: 442px;
+        max-height: 240px;
     }
 
     h2 {
@@ -42,6 +43,11 @@
         left: 4% !important;
         // width: 92px;
     }
+}
+
+.swiper-details {
+    background-color: #121212;
+    ;
 }
 
 .movieImgDetails {

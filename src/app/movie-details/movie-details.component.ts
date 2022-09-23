@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit,OnChanges, SimpleChanges} from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MoviesApiService } from '../movies-api.service';
 import { Subject, Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrls: ['./movie-details.component.scss']
 })
 
-export class MovieDetailsComponent implements OnInit,OnChanges, AfterViewInit, OnDestroy {
+export class MovieDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   movie: any = [];
   rateMovies: any = [];
   favoriteMovies: any = [];
@@ -20,7 +20,7 @@ export class MovieDetailsComponent implements OnInit,OnChanges, AfterViewInit, O
   showSpinner = true;
   showVideo = false;
   spinnerVideo = true;
-  showPlay :any;
+  showPlay: any;
 
   idMovie: any;
   movieImgPath = 'https://image.tmdb.org/t/p/w300';
@@ -34,11 +34,12 @@ export class MovieDetailsComponent implements OnInit,OnChanges, AfterViewInit, O
   isMouseover = true;
   rate = 0;
   res = 0;
+  page = 0;
 
   favoriteMovie: any;
   safeSrc: SafeResourceUrl | any;
 
-  subjectId = new Subject();
+  
   subscriptions = new Subscription()
 
   constructor(
@@ -55,22 +56,26 @@ export class MovieDetailsComponent implements OnInit,OnChanges, AfterViewInit, O
     this.subscriptions.add(
       this.activatedRoute.params.subscribe((params: Params) => {
         this.idMovie = params['id'];
-        this.subjectId.next(params['id']);
+        
         this.getMovieDeteils(this.idMovie);
 
         this.loginService.sessionObservable.subscribe(data => {
           this.session_id = data;
         });
-        
-        this.userService.userObservable?.subscribe(user => {
-          console.log('moviedetails', user)
+
+        this.userService.userObservable.subscribe(user => {
           if (user) {
             this.user = user;
+            this.getRate();
+            this.getFavoriteMovies();
+            this.getVideoMovie();
+          }else{
+            this.selectedValue = 0;
+            this.favoriteMovie = false;
           }
-          this.getRate();
-          this.getFavoriteMovies();
-          this.getVideoMovie();
+
         });
+
         this.showSpinner = true;
         this.showVideo = false;
         this.ngAfterViewInit();
@@ -81,12 +86,9 @@ export class MovieDetailsComponent implements OnInit,OnChanges, AfterViewInit, O
   ngAfterViewInit() {
     setTimeout(() => {
       this.showSpinner = false;
-    }, 1000)
+    }, 1000);
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    this.subjectId.subscribe(data =>{
-    })
-  }
+  
 
   getMovieDeteils(id: any) {
     this.subscriptions.add(
@@ -101,14 +103,13 @@ export class MovieDetailsComponent implements OnInit,OnChanges, AfterViewInit, O
   getRate() {
     this.isMouseover = true;
     if (this.user) {
-      this.subscriptions.add(
-        this._movie.getRate(this.user.id, this.session_id)?.subscribe(data => {
-          data.results.map((element: any) => {
-            this.rateMovies.push(element);
+      this.page ++;
+        this._movie.getRate(this.user.id, this.session_id, this.page)?.subscribe(data => {
+            data.results.map((element: any) => {
+              this.rateMovies.push(element);
+            })
+            this.setStrats();
           })
-          this.setStrats();
-        })
-      )
     }
   }
 
@@ -139,7 +140,6 @@ export class MovieDetailsComponent implements OnInit,OnChanges, AfterViewInit, O
   }
 
   setStrats() {
-    this.selectedValue = 0;
     this.rateMovies.forEach((element: any) => {
       if (element.id == this.idMovie) {
         if (element.rating <= 2) {
@@ -153,7 +153,9 @@ export class MovieDetailsComponent implements OnInit,OnChanges, AfterViewInit, O
 
   setRateMovie(rate: any) {
     this._movie.setRateMovie(this.movie.id, rate, this.session_id).subscribe(() => {
-      this.getRate();
+      this.page = 0;
+      this.rateMovies = [];
+      this.ngOnInit();
     });
   }
 

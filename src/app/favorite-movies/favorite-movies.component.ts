@@ -18,6 +18,7 @@ export class FavoriteMoviesComponent implements OnInit, OnDestroy {
 
   stars: number[] = [1, 2, 3, 4, 5];
   selectedValue: any;
+  page=1;
 
   subscriptions = new Subscription()
 
@@ -56,7 +57,7 @@ export class FavoriteMoviesComponent implements OnInit, OnDestroy {
   getRate() {
     if (this.session_id) {
       this.subscriptions.add(
-        this._movie.getRate(this.user.id, this.session_id)?.subscribe(data => {
+        this._movie.getRate(this.user.id, this.session_id,this.page)?.subscribe(data => {
           data.results.map((element: any) => {
             this.favoriteMovies?.forEach((favMovie: any) => {
               if (favMovie.id == element.id) {

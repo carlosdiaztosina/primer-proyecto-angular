@@ -14,7 +14,10 @@ import { NavigationService } from './navigation.service';
 export class NavegationComponent implements OnInit {
   
   menuOn = false;
-  fieldOn=true;
+  fieldOn=false;
+  windowWidth=false;
+  searchBotton=true;
+
   textField:any;
   session_id:any;
   
@@ -43,6 +46,7 @@ export class NavegationComponent implements OnInit {
       this.scrollOnArrow=true;
       this.scrollOnSearch=false;
       this.fieldOn = false;
+      this.searchBotton = false;
     }
     window.addEventListener("scroll",(event)=>{
       this.getScroll();
@@ -92,20 +96,15 @@ export class NavegationComponent implements OnInit {
     if(this.route.url.length <= 1 && window.scrollY == 0){
       this.scrollOnArrow=false;
       this.scrollOnSearch=true;
-      this.fieldOn = true;
     }else if(this.route.url.length > 1  && window.scrollY == 0){
       this.typeScroll = "arrow_back";
       this.scrollOnArrow=true;
       this.scrollOnSearch=false;
       this.fieldOn = false;
-    }else if(this.route.url.length > 1  && window.scrollY > 1){
+    }else if( window.scrollY > 400){
       this.typeScroll = "arrow_upward";
       this.scrollOnArrow=true;
       this.scrollOnSearch=false;
-    }else{
-      this.typeScroll = "arrow_upward";
-      this.scrollOnArrow=true;
-      this.scrollOnSearch=true;
     }
   }
 
@@ -119,6 +118,18 @@ export class NavegationComponent implements OnInit {
       }, 500);
     }else{
       this.naviServ.setText(null);
+    }
+  }
+
+  showField(fieldOn:any){
+    if(fieldOn){
+      this.fieldOn =false;
+    }else if(!fieldOn && window.screen.width <= 600){
+      this.fieldOn = true;
+      this.windowWidth = true;
+    }else{
+      this.fieldOn = true;
+      this.windowWidth = false;
     }
   }
 }

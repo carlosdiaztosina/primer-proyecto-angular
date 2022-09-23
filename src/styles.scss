@@ -68,6 +68,9 @@ body {
 
 .mat-form-field-ripple {
   background-color: white;
+  transform-origin: 0 !important;
+  transform: none !important;
+  opacity: 1 !important;
 }
 
 .mat-card {

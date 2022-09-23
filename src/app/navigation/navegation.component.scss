@@ -10,30 +10,19 @@
         padding-left: 10px;
         align-items: center;
         justify-content: space-between;
-
-        .serach-icon {
-            position: absolute;
-            right: 66%;
-            z-index: 1;
-            font-size: 24px;
-            color: black;
-            cursor: auto !important;
-        }
     }
 
     input {
-        height: 20%;
-        width: 50%;
-        margin: 0;
-        margin-top: 9px;
+        height: 25%;
+        width: 170px;
         border-radius: 5px;
         background-color: #9c9b9bab;
         outline: none;
         border: 1px solid #121212;
     }
 
-    input:focus{
-        .serach-icon{
+    input:focus {
+        .serach-icon {
             visibility: hidden;
         }
     }
@@ -43,9 +32,8 @@
         justify-content: center;
 
         .logo {
-            height: 90px;
+            height: 75px;
             width: auto;
-            padding: 10px;
         }
     }
 
@@ -54,28 +42,46 @@
         flex-direction: row-reverse;
         justify-content: flex-start;
         align-items: center;
-
-
-
     }
 
 }
 
+.input-hidden {
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #121212;
+    position: absolute;
+    margin-right: 15px;
+    right: 0;
+}
+
 mat-icon {
-    font-size: 35px;
+    font-size: 30px;
     width: auto;
     height: auto;
-    padding-top: 10px;
     padding-right: 15px;
     cursor: pointer;
 }
 
 .logout {
+    display: none;
+}
+
+.logout-arrow,
+.logout-input {
     visibility: hidden;
 }
 
+
 .selected {
     visibility: visible;
+}
+
+@media (max-width: 700px) {
+
+    input {
+        width: 130px !important;
+    }
 }
 
 @media (max-width: 560px) {

@@ -40,6 +40,7 @@ export class LoginService {
 
     login(form: any) {
         this._token.getToken().subscribe(data => {
+            
             const token = data.request_token;
             this._token.getLogin(form, token).subscribe(data => {
                 if (data.success) {

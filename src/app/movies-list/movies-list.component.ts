@@ -46,7 +46,8 @@ export class MoviesListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.add(
-      this.userService.userObservable.subscribe()
+      this.userService.userObservable.subscribe(data=>{
+      })
     );
     this.subscriptions.add(
       this.navigationService.textObservable.subscribe(text => {
